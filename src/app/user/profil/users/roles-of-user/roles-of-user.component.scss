@@ -1,0 +1,100 @@
+/*
+.roles-of-user {
+  h3 {
+    .login {
+      font-size: 1.5rem;
+      display: block;
+      margin-top: 0.5em;
+    }
+  }
+
+  .roles {
+    ul {
+      float: left;
+      width: 100%;
+      padding: 1em;
+      li {
+        float: left;
+        width: 100%;
+        list-style: none;
+        padding: 1em 0.5em;
+        border-bottom: 1px solid #eeeeee;
+        h4 {
+          margin: 0;
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    button {
+      &.btn-success {
+        background: #87CB16;
+        color: white;
+        border: none;
+      }
+      &.btn-default {
+        margin-right: 1em;
+        border: 1px solid #eee;
+      }
+
+    }
+
+  }
+}
+*/
+
+@import "../../../../../assets/sass/lbd/variables";
+
+.roles-of-user {
+  .x_title {
+    h3 {
+      .login {
+        font-size: 1.5rem;
+        display: block;
+        margin-top: 0.5em;
+      }
+    }
+    //background: #eeeeee;
+    //color: $secondary-color;
+    border-bottom: 2px solid $secondary-color;
+    //border-radius: 3px;
+    padding-bottom: 5px;
+  }
+  .x_content {
+    .roles {
+      float: left;
+      width: 100%;
+      padding: 1em;
+      li {
+        float: left;
+        width: 100%;
+        list-style: none;
+        padding: 1em 0.5em;
+        border-bottom: 1px solid #eeeeee;
+        h4 {
+          margin: 0;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .ln_solid {
+      float: left;
+      width: 100%;
+    }
+  }
+  .fermer {
+    .btn-success {
+      background: #87CB16;
+      color: white;
+      border: none;
+    }
+
+    .btn-default {
+      margin-right: 1em;
+      border: 1px solid #eee;
+    }
+  }
+}

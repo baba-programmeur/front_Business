@@ -1,0 +1,35 @@
+<div style="display: flex;justify-content: space-between;align-items: center;margin: 20px 0 50px 0;">
+    <div style="display: flex;gap:10px;align-items: center">
+        <mat-icon style="color:#225c9f;font-size: 30px;width: 30px;height: 30px">list_alt</mat-icon>
+        <h1 style="font-size: 30px;color:#0f213c;font-weight: 500;margin: 0;">Liste campagne</h1>
+    </div>
+
+    <div style="display: flex;gap:20px;align-items: center">
+        <app-monbutton (click)="collecte()" [texte_size]="'16px'" [icone_size]="'25px'"  [texte]="'Faire une collecte'" [height]="'42px'" [icone_left]="'add_circle'"  [background_button]="'#3dbc4c'" [color_texte]="'#fff'" ></app-monbutton>
+        <app-monbutton (click)="paiement()"  [texte_size]="'16px'"  [icone_size]="'25px'"  style="border: 1px solid #0e223c;border-radius: 5px;" [texte]="'Faire un paiement'" [height]="'42px'" [icone_left]="'add_circle'" [background_button]="'#fff'" [color_texte]="'#0f213c'" ></app-monbutton>
+    </div>
+</div>
+<app-show-list
+        [title]="''"
+        [iconTitle]="'fa fa-list'"
+        [add]="false"
+        [edit]="false"
+        [delete]="false"
+        [filtre]="true"
+        [fieldsForSearch]="fieldsForSearch"
+        [fieldSForFiltre]="fieldsForFilter"
+        [customButtons]="custombuttons"
+        (onCustomButtonClicked)="onCustomButton($event)"
+        (filterChange)="getCampagnes(null, null, $event)"
+        [headers]="headers"
+        [entities]="entities"
+        [totalItems]="totalItems"
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (onDetailClicked)="onDetails($event)"
+        (onEditClicked)="onEdit($event)"
+        (onDeleteClicked)="onDelete($event)"
+        (onExportDataClicked)="exporter(filtres)"
+        (onPaginationClicked)="getCampagnes($event, itemsPerPage, filtres)"
+        (itemsPerPageChange)="getCampagnes(1, $event, filtres)"
+></app-show-list>

@@ -1,0 +1,153 @@
+<div class="edit-entity dialog">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Gestion des frais</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                                <mat-button-toggle (click)="changeType('DECAISSEMENT')" value="DECAISSEMENT">DECAISSEMENT</mat-button-toggle>
+                                <mat-button-toggle (click)="changeType('ENCAISSEMENT')" value="ENCAISSEMENT">ENCAISSEMENT</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                        <div class="canaux col-md-6 col-sm-12 col-lg-6">
+                            <p *ngIf="fraisDetailsFilter && fraisDetailsFilter.length == 0"
+                                style="text-align: center;
+                                        margin-top: 2em;
+                                        font-size: 18px;">
+                                Aucune configuration trouvée pour {{ typeCampagne }}!
+                            </p>
+                            <table *ngIf="fraisDetailsFilter && fraisDetailsFilter.length != 0" class="table table-striped table-responsive">
+                                <thead>
+                                <tr><th></th><th>Canal de réception</th><th>Type frais</th><th>Valeur</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let frais of fraisDetailsFilter">
+                                        <td (click)="detailsFrais(frais)"><i class="fa fa-eye"></i></td><td>{{ frais.canal }}</td><td>{{ frais.type }}</td><td>{{ formatMontant(frais.valeur) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <form [formGroup]="formGroup" class="col-md-6 col-sm-12 col-lg-6 form-label-left">
+
+                            <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="nomPartenaire">Nom partenaire
+                                    <input [(ngModel)]="souscription.nomes" class="form-control" disabled formControlName="nomPartenaire"
+                                           id="nomPartenaire" type="text">
+                                </label>
+                            </div>
+                            <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="codePartenaire">Code partenaire
+                                    <input [(ngModel)]="souscription.code_partenaire" class="form-control" disabled formControlName="codePartenaire"
+                                           id="codePartenaire" type="text">
+                                </label>
+                            </div>
+
+                            <hr>
+
+                            <div *ngIf="typeCampagne === 'DECAISSEMENT'" class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="type">Type de canal
+                                    <select [(ngModel)]="selectedTypeCanal.id" class="form-control" formControlName="typeCanal"
+                                            id="typeCanal"
+                                            (change)="getCanals(selectedTypeCanal)">
+                                        <!--<option value="">Selectionner un type de canal</option>-->
+                                        <option *ngFor="let typeCanal of typeCanals" value="{{ typeCanal.id }}">{{ typeCanal.libelle }}</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div *ngIf="typeCampagne === 'DECAISSEMENT'" class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="type">Canal de reception
+                                    <select [(ngModel)]="selectedCanal.id" class="form-control" formControlName="canal"
+                                            id="canal">
+                                        <!--<option value="">Selectionner un canal</option>-->
+                                        <option *ngFor="let canal of canals" value="{{ canal.id }}">{{ canal.libelle }}</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="type">Type frais
+                                    <select [(ngModel)]="fraisDetail.type" class="form-control" formControlName="type"
+                                            id="type">
+                                        <option value=""></option>
+                                        <option value="fixe">Frais fixe</option>
+                                        <option value="pourcentage">Pourcentage</option>
+                                        <option value="plage">Plage</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div *ngIf="fraisDetail.type != 'plage'" class="form-group col-md-12 col-lg-12 col-sm-12">
+                                <label class="col-md-12 col-lg-12 col-sm-12" for="valeur">Valeur
+                                    <input [(ngModel)]="fraisDetail.valeur" class="form-control" formControlName="valeur" id="valeur"
+                                           type="number">
+                                </label>
+                            </div>
+
+                            <div *ngIf="fraisDetail && fraisDetail.type == 'plage'" class="list-plage">
+                                <table class="table table-striped" style="margin-bottom: 3em">
+                                    <thead>
+                                    <tr>
+                                        <th>Montant min</th>
+                                        <th>Montant max</th>
+                                        <th>Frais</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let plage of plagesCourant">
+                                        <td>{{ formatMontant(plage.min) }}</td>
+                                        <td>{{ formatMontant(plage.max) }}</td>
+                                        <td>{{ formatMontant(plage.montant) }}</td>
+                                        <td><i style="color: red;" class="fa fa-remove" (click)="onRemovePlage(plage)"></i></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="new_plage">
+                                    <div class="item col-md-3 col-lg-3 col-sm-3">
+                                        <input [(ngModel)]="min" formControlName="min" id="min" placeholder="Min"
+                                               type="number">
+                                    </div>
+                                    <div class="item col-md-3 col-lg-3 col-sm-3">
+                                        <input [(ngModel)]="max" formControlName="max" id="max" placeholder="Max"
+                                               type="number">
+                                    </div>
+                                    <!--<div class="item col-md-1 col-lg-1 col-sm-1">
+                                        <select class="form-control" [(ngModel)]="typePlage" formControlName="typePlage" id="typePlage">
+                                            <option value="fixe">F</option>
+                                            <option value="pourcentage">P</option>
+                                        </select>
+                                    </div>-->
+                                    <div class="item col-md-3 col-lg-3 col-sm-3">
+                                        <input [(ngModel)]="montant" formControlName="montant" id="montant" placeholder="Frais"
+                                               type="number">
+                                    </div>
+                                    <div class="item col-md-3 col-lg-3 col-sm-3">
+                                        <button (click)="onAddPlage()" class="" mat-raised-button><i
+                                                class="fa fa-plus-circle"></i> Ajouter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+                    <button (click)="onCancel()" class="" mat-raised-button style="margin-right: 0.5em">Fermer</button>
+                    <button (click)="onSubmit()" [disabled]="!formGroup.valid" class="valide" mat-raised-button
+                            type="submit">Valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="formulaire-item-view" [ngClass]="{'selected': selectedType == 'item' && selected}">
+  <div class="items" *ngIf="formItem?.formulaireItems">
+  </div>
+
+  <form [formGroup]="globalForm">
+    <ul>
+      <li *ngFor="let formItem of formItem?.formulaireItems">
+        <app-formulaire-data-item [formItem]="formItem" (onChampChange)="onchangeChamp($event)"></app-formulaire-data-item>
+      </li>
+    </ul>
+
+    <div class="champs" *ngIf="formItem?.champs && formItem?.champs.length != 0">
+      <ng-container *ngFor="let champ of formItem?.champs">
+        <ng-container *ngIf="champ?.visible">
+          <div *ngIf="champ?.type == 'select'"
+               [ngStyle]="{'width': champWidth + '%', 'display': champDisplay}" class="form-group">
+            <label for="{{ champ?.slug }}">{{ champ?.label}}
+              <span *ngIf="globalForm && globalForm?.controls[champ?.slug]?.invalid && (globalForm?.controls[champ?.slug]?.dirty || globalForm?.controls[champ?.slug]?.touched)"
+                    class="error">
+            <label>
+              ({{ getErrorMessage(champ) }})
+            </label>
+          </span>
+              <select class="form-control" id="{{ champ?.slug }}"
+                      [ngClass]="{error: globalForm && globalForm?.controls[champ?.slug]?.invalid && (globalForm?.controls[champ?.slug]?.dirty || globalForm?.controls[champ?.slug]?.touched)}"
+                      formControlName="{{ addControlAndGetSlug(champ) }}" (change)="onChangeSelect($event, champ)">
+                <option value=""></option>
+                <option *ngFor="let option of parseOptions(champ?.optionsValue)" value="{{ option.valeur }}">{{ option.label }}</option>
+              </select>
+            </label>
+          </div>
+
+          <div *ngIf="champ?.type != 'select'"
+               [ngStyle]="{'width': champWidth + '%', 'display': champDisplay}" class="form-group">
+            <label for="{{ champ?.slug }}"> {{ champ?.label}}
+
+              <span *ngIf="globalForm && globalForm.controls[champ?.slug]?.invalid && (globalForm?.controls[champ?.slug]?.dirty || globalForm?.controls[champ?.slug]?.touched)"
+                    class="error">
+                <label>
+                  ({{ getErrorMessage(champ) }})
+                </label>
+              </span>
+              <input autocomplete="off" class="form-control" id="{{ champ?.slug }}"
+                     [ngClass]="{error: globalForm && globalForm?.controls[champ?.slug]?.invalid && (globalForm?.controls[champ?.slug]?.dirty || globalForm?.controls[champ?.slug]?.touched)}"
+                     formControlName="{{ addControlAndGetSlug(champ) }}" placeholder="{{ champ?.placeholder }}"
+                     type="{{ champ?.type }}" (change)="dateOnChange($event, champ)"/>
+            </label>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </form>
+</div>

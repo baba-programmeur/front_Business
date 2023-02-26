@@ -1,0 +1,206 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.filtres {
+  position: relative;
+  margin-top: 1em;
+  text-align: right;
+  .search {
+    max-width: 422px;
+    width: 422px;
+    display: inline-block;
+    position: relative;
+    margin-right: 0em;
+    vertical-align: middle;
+    label {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      color: $primary-color;
+      /* color: white; */
+      padding: 0.3em 0.5em;
+      height: 31px;
+      border-radius: 5px 0 0 5px;
+      line-height: 27px;
+      font-size: 20px;
+    }
+    input {
+      width: 100%;
+      border: 1px solid #aaaaaa;
+      height: 40px;
+      border-radius: 5px;
+      padding: 0.5em 2.5em 0.5em 0.5em;
+      background: transparent;
+    }
+  }
+
+  .filtre {
+    display: inline-block;
+
+    button {
+      &.filtrer {
+        border: 1px solid #aaaaaa;
+        color: #2c5aa3;
+        font-size: 17px;
+        i {
+          width: 27px;
+          font-size: 20px;
+          vertical-align: middle;
+        }
+      }
+    }
+    .filtre-menu {
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background: white;
+      box-shadow: 0 0 11px 0 #ddd;
+      border-radius: 5px;
+      padding: 2em;
+      z-index: 1;
+      .form {
+        margin: 0;
+      }
+    }
+
+    .btn-group {
+      button {
+        height: 35px;
+        padding: 0.3em 1em;
+        border: none;
+        box-shadow: 0 0 3px;
+        background: $secondary-color;
+        color: white;
+        span {
+          border-top-color: inherit;
+        }
+      }
+      .dropdown-menu {
+        //right: 0;
+        border: none;
+        box-shadow: 0 0 6px #aaa;
+        left: -38px;
+        top: 40px;
+        border-radius: 3px;
+        padding: 0.2em;
+        a {
+          display: block;
+          padding: 0.6em 1em;
+          border-bottom: 1px solid #eee;
+          cursor: pointer;
+          color: inherit;
+          &:hover {
+            background: #eee;
+          }
+          &:last-child {
+            border: none;
+          }
+        }
+      }
+    }
+
+    .form {
+      display: inline-block;
+      margin-left: 1em;
+    }
+  }
+
+  .fields {
+    position: absolute;
+    z-index: 88;
+    top: 41px;
+    right: 122px;
+    text-align: left;
+    ul {
+      background: white;
+      box-shadow: 0 0 15px 0 #bbb;
+      padding: 0.5em 0;
+      margin: 0.3em 0 0;
+      width: 300px;
+      li {
+        list-style: none;
+        a {
+          padding: 0.5em;
+          border-bottom: 1px solid #eee;
+          width: 100%;
+          display: block;
+          color: inherit;
+          cursor: pointer;
+          &:hover {
+            background: #eee;
+          }
+        }
+        &:last-child {
+          a {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+
+  .filter-bar {
+    float: left;
+    width: 100%;
+    position: relative;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    border-radius: 5px;
+    margin-top: 1em;
+    text-align: left;
+    p.search-items {
+      display: block;
+      margin: 0;
+      font-size: 1.3rem;
+      span {
+        padding: 0.3em 0.1em 0.3em 0.5em;
+        border: 1px solid #bbb;
+        border-radius: 30px;
+        background: #eee;
+        margin-right: 0.5em;
+        font-size: 14px;
+        em {
+          color: white;
+          padding: 0.05em 1em;
+          &.libelle {
+            background: $primary-color;
+            border-radius: 30px 0 0 30px;
+          }
+          &.value {
+            background: $secondary-color;
+            border-radius: 0 30px 30px 0;
+            font-style: italic;
+            //font-size: 1.2rem;
+          }
+        }
+        a.fermer-filtre {
+          margin-left: .5em;
+          cursor: pointer;
+          color: #555;
+          border: 1px solid #ccc;
+          border-radius: 50%;
+          height: 15px;
+          width: 15px;
+          display: inline-block;
+          line-height: 13px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 572px) {
+  .search {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .fields {
+    position: initial !important;
+    ul {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+  }
+}

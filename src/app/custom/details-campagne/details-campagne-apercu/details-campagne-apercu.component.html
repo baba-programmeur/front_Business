@@ -1,0 +1,38 @@
+<div class="details_campagne_apercu">
+    <table #dataTable class="table table-responsive table-striped display" style="width:100%">
+        <thead>
+            <tr>
+                <th *ngFor="let header of entete">{{ header }}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let entity of entities">
+                <ng-container *ngIf="entity && entity.values">
+                    <td *ngFor="let value of entity.values">{{ value }}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--<app-show-list-->
+<!--        id="details-comapagne-apercu"-->
+<!--        [title]="'détails campagne'"-->
+<!--        [iconTitle]="'fa fa-list'"-->
+<!--        [add]="false"-->
+<!--        [delete]="false"-->
+<!--        [filtre]="false"-->
+<!--        [fieldsForSearch]="fieldsForSearch"-->
+<!--        [fieldSForFiltre]="fieldsForFilter"-->
+<!--        [headers]="headers"-->
+<!--        [entities]="entities"-->
+<!--        [totalItems]="totalItems"-->
+<!--        [currentPage]="currentPage"-->
+<!--        [itemsPerPage]="itemsPerPage"-->
+<!--        (onDetailClicked)="onDetails($event)"-->
+<!--        (onEditClicked)="onEdit($event)"-->
+<!--        (onDeleteClicked)="onDelete($event)"-->
+<!--        (onPaginationClicked)="getDetailCampagnes($event, campagne)"-->
+<!--        (filterChange)="getDetailCampagnes(1, campagne, $event)"-->
+<!--&gt;</app-show-list>-->

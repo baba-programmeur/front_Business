@@ -1,0 +1,21 @@
+<app-show-list
+    [title]="'mouvements de solde'"
+    [iconTitle]="'fa fa-list'"
+    [add]="false"
+    [edit]="false"
+    [custom]="false"
+    [isDialog]="isDialog"
+    [delete]="false"
+    [filtre]="true"
+    [fieldsForSearch]="fieldsForSearch"
+    [fieldSForFiltre]="fieldsForFilter"
+    [headers]="headers"
+    [entities]="entities"
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    [itemsPerPage]="itemsPerPage"
+    (onDetailClicked)="onDetails($event)"
+    (onCloseDialogClicked)="closeDialog($event)"
+    (onPaginationClicked)="getPartenaireMouvements($event, filtres)"
+    (filterChange)="getPartenaireMouvements(1, $event)">
+</app-show-list>

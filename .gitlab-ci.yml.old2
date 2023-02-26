@@ -1,0 +1,72 @@
+variables:
+  CLI_VERSION: 7.3.8
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - analysis
+  - deploy
+
+build:
+  stage: build
+  image: trion/ng-cli:${CLI_VERSION}
+  before_script:
+    #- su apt-get install g++
+    #- su apt-get install -y build-essential python
+    - npm install node-pre-gyp
+    - npm install firebase --force
+    - npm i node-sass
+    - npm install
+  script:
+    - ng build --base-href ./
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/
+  tags:
+    - angular
+
+analysis:
+  stage: analysis
+  #image: trion/ng-cli:${CLI_VERSION}
+  script:
+  - sonar-scanner
+    -Dsonar.host.url=http://172.30.4.215:9000 
+    -Dsonar.login=6cc8d86ccc145d921945d6b308d58b44548e9216
+    -Dsonar.typescript.lcov.reportPaths=coverage/lcov/lcov.info
+    -Dsonar.sourceEncoding=UTF-8
+    -Dsonar.sources=src/app
+    -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts
+    -Dsonar.tests=src/app
+    -Dsonar.test.inclusions=**/*.spec.ts
+
+deploy-staging:
+  image: alpine
+  stage: deploy
+  environment:
+    name: staging
+    url: http://172.30.4.63/api
+  before_script:
+    - apk add --no-cache rsync
+    #- su apt-get install openssh
+    #- su apt-get install -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apk add -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    #- apk add --no-cache shadow
+    - chmod 600 id_rsa
+    - mkdir -p ~/.ssh
+    - ssh-add id_rsa
+    - ssh-keyscan -H '172.30.4.63' >> ~/.ssh/known_hosts
+    - ssh-keyscan -H '172.30.4.220' >> ~/.ssh/known_hosts
+    - ssh-keyscan 172.30.4.63 | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    #- ssh -o StrictHostKeyChecking=no ses@172.30.4.213 "cd /var/www/html/gweb_refont_angular && git checkout develop  && git stash && git pull origin develop && npm install && npm run build:test &&  cp -r dist/* ../gwebangular && exit"
+    - rsync -rav --delete dist/upay_b2b_angular selle@172.30.4.220:/var/www/html/upayV2
+    #- ssh -o StrictHostKeyChecking=no ses@172.30.4.220 "cd /var/www/html/upayV2 && mv upayV2/* ../ && exit"
+  #only:
+    #  - master

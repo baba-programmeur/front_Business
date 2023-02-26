@@ -1,0 +1,30 @@
+export interface DetailCampagneInterface {
+    id: number;
+    canal: string;
+    code: string;
+    codeEs: string;
+    codePays: string;
+    commentaire: string;
+    dateEnvoi: string;
+    datePaiement: string;
+    echeanceFacture: string;
+    heureEnvoi: string;
+    idClient: string;
+    idFacture: string;
+    mail: string;
+    montant: number;
+    motif: string;
+    nbSms: number;
+    nom: string;
+    nomEs: string;
+    numeroPiece: string;
+    prenom: string;
+    sms: string;
+    statutpayer: string;
+    statutverser: string;
+    supporterFrais: string
+    telephone: string;
+    type: string;
+    typeCanal: string;
+    typePiece: string;
+}

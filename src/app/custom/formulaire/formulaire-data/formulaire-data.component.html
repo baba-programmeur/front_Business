@@ -1,0 +1,17 @@
+<div class="formulaire-data">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 apercu">
+        <fieldset>
+          <form [formGroup]="globalForm">
+            <ul *ngIf="formDetails && formDetails.formulaireItems && formDetails.formulaireItems.length != 0">
+              <li *ngFor="let formItem of formDetails.formulaireItems">
+                <app-formulaire-data-item [globalForm]="globalForm" [formItem]="formItem" (onChampChange)="onChampChange($event)"></app-formulaire-data-item>
+              </li>
+            </ul>
+          </form>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

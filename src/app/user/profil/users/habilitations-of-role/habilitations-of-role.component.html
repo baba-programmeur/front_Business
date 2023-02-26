@@ -1,0 +1,43 @@
+<div class="habilitations-of-role">
+  <h3>{{ role.name }}</h3>
+  <hr>
+
+  <div class="roles">
+    <ul class="parent">
+      <li *ngFor="let habilitaion of habilitationsToShow" class="parent">
+        <div class="entete">
+          <mat-checkbox
+                  (change)="onCheck($event, habilitaion, true)"
+                  [checked]="habilitaion.all">
+            <h4 class="libelle">
+              <span style="margin-right: 0.5em">{{ habilitaion.libelle }} </span>
+              <!--            <span class="pull-right">({{ joueur.numeroLicense }})</span>-->
+            </h4>
+          </mat-checkbox>
+        </div>
+
+        <i (click)="onSwitchBloc($event)" id="switchBloc" class="fa fa-chevron-up"></i>
+
+        <ul class="item open">
+
+          <li *ngFor="let item of habilitaion.habilitations" class="item">
+            <mat-checkbox
+                    (change)="onCheck($event, item, false)"
+                    [checked]="item.exist">
+              <h4>
+                <span style="margin-right: 0.5em">{{ item.description }} </span>
+                <!--            <span class="pull-right">({{ joueur.numeroLicense }})</span>-->
+              </h4>
+            </mat-checkbox>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="buttons pull-right">
+    <button class="btn btn-default" (click)="onClose()">Annuler</button>
+    <button class="btn btn-success" (click)="onValidate()">Valider</button>
+  </div>
+</div>
+

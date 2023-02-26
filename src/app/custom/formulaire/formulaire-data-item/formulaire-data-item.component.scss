@@ -1,0 +1,91 @@
+@import "../../../../assets/sass/lbd/variables";
+
+::ng-deep ul li {
+  list-style: none;
+}
+::ng-deep ul {
+  padding: 0;
+}
+.formulaire-item-view {
+  border-radius: 5px;
+  margin-bottom: 1em;
+  // position: relative;
+  &.selected {
+    border: 1px solid #000000c7;
+    >.menu {
+      ul {
+        background: #000000c7;
+      }
+    }
+  }
+  .menu {
+    text-align: right;
+    background: #eeeeee;
+    border-radius: 5px;
+    ul {
+      padding: 0;
+      li {
+        list-style: none !important;
+        display: inline-block;
+        margin-right: 0.2em;
+        border-right: 1px solid #ddd;
+        padding: 0 0.3em;
+        a {
+          cursor: pointer;
+        }
+        &:first-child {
+          border-left: 1px solid #ddd;
+        }
+        &:last-child {
+          margin-right: 0;
+          border-right: none;
+        }
+
+        &.add_item {
+          a {
+            color: green;
+          }
+        }
+        &.add_champ {
+          a {
+
+          }
+        }
+        &.edit_item {
+          a {
+            color: orange;
+          }
+        }
+        &.delete_item {
+          a {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+
+  .items,
+  .champs {
+    //margin-top: 1em;
+    margin-bottom: 0 !important;
+  }
+
+  .champs {
+    .form-group {
+      label {
+        width: 95%;
+        margin: auto;
+        display: block;
+        color: $primary-color;
+        span.error {
+          label {
+            font-size: 1rem;
+            color: red;
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+}

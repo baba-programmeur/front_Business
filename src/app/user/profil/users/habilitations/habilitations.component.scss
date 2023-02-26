@@ -1,0 +1,42 @@
+@import "../../../../../assets/sass/lbd/variables";
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  i {
+    margin-right: .5em;
+  }
+}
+
+.m-habilitations {
+  padding: 2em;
+  background: white;
+  .menu {
+    padding: 0.5em;
+    background: #eee;
+    box-shadow: 0 0 2px;
+    margin-bottom: 2em;
+    button {
+      background: $primary-color;
+      color: white;
+    }
+  }
+  ul {
+    padding: 0;
+    &.group {
+      margin: auto;
+      width: 50%;
+    }
+    li {
+      list-style: none;
+      ul {
+        background: #F5F5F5;
+        padding: 0.5em;
+        //min-height: 200px;
+        li {
+          padding: 0.5em;
+        }
+      }
+    }
+  }
+}

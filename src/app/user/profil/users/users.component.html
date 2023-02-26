@@ -1,0 +1,56 @@
+<div class="users" style="display: flex; flex-direction: column">
+    <div style="display: flex; align-items: center; justify-content: space-between">
+        <h3>
+            Liste des utilisateurs
+        </h3>
+        <div class="menu pull-right">
+            <button class="btn btn-primary" (click)="onAddUser()"><i class="fa fa-plus-circle"></i> Nouvel utilisateur</button>
+        </div>
+    </div>
+    <hr>
+    <div class="m-users">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Creation</th>
+                    <th style="text-align: center">Actif</th>
+                    <!--<th style="text-align: center">Email vérifié</th>-->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ toDateStamp(user.createdTimestamp) }}</td>
+                <td class="actif"><span [ngClass]="{'oui': user.enabled, 'non': !user.enabled}"></span></td>
+                <!--<td class="verifie"><span [ngClass]="{'oui': user.emailVerified, 'non': !user.emailVerified}"></span></td>-->
+                <td class="roles">
+                    <span matTooltip="voir" class="sp btn btn-round btn-default" (click)="onDetails(user)">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <span matTooltip="roles" class="sp btn btn-round btn-success role-list" (click)="onListRoles(user)">
+                        <i class="fa fa-list"></i>
+                    </span>
+                    <span matTooltip="modifier" class="sp btn btn-round btn-primary edit" (click)="editUser(user)">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                    <span matTooltip="désactiver" class="sp btn btn-round btn-danger disable" *ngIf="user.enabled" (click)="changeState(false, user)">
+                        <i class="fa fa-ban"></i>
+                    </span>
+                    <span matTooltip="activer" class="sp btn btn-round btn-success enable" *ngIf="!user.enabled" (click)="changeState(true, user)">
+                        <i class="fa fa-check-circle"></i>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

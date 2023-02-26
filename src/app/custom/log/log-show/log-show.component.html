@@ -1,0 +1,22 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive table-striped">
+  <thead>
+  <tr>
+    <th>Description</th>
+    <th>Date</th>
+    <th>Entite</th>
+    <th>Filiale</th>
+    <th>Username</th>
+    <th>Profil</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let log of logs">
+    <td>{{ log.descriptionAction }}</td>
+    <td>{{ toDateStamp(log.dateAction) }}</td>
+    <td>{{ log.entite }}</td>
+    <td>{{ log.filiale }}</td>
+    <td>{{ log.login }}</td>
+    <td>{{ log.profil }}</td>
+  </tr>
+  </tbody>
+</table>

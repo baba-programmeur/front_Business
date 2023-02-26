@@ -1,0 +1,23 @@
+.btn_assoc{
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  transition: all .3s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.btn_assoc:hover{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  opacity: .8;
+}
+
+@media (max-width: 600px){
+  .btn_assoc{
+    width: 100% !important;
+  }
+}

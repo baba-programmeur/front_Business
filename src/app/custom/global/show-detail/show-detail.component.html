@@ -1,0 +1,132 @@
+<div class="show-detail dialog" >
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{ title }}</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <ul class="details">
+                        <form [formGroup]="formUpdateDetailsCampagne"  >
+                            <li>
+                                <!-- <span class="libelle">{{ inShowDetails ? namePartenaire.toUpperCase() : namePartenaire }}</span> -->
+                                <span class="libelle">Nom partenaire</span>
+                                <span class="valeur">{{ nomPartenaire }}</span>
+                            </li>
+                            <li *ngFor="let detail of tab">
+                                <span class="libelle">{{ detail.libelle }}</span>
+                                <span class="valeur" *ngIf="!detail.isEditable">{{ detail.value }}</span>
+<!--                                <span class="valeur" *ngIf="!detail.isEditable && detail.value == 'statut' ">-->
+<!--                                    {{ detail.value }}-->
+<!--                                    <ng-container *ngIf="!detail.isEditable && detail.value == 'statut'">-->
+<!--                                      <span [ngStyle]="{'background': item.background}" class="statut">{{ detail.value }}</span>-->
+<!--                                   </ng-container>-->
+<!--                                </span>-->
+
+                                <span class="valeur" *ngIf="detail.isEditable && detail.libelle.toLowerCase()== 'nom' ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput formControlName="nom" type="text"
+                                               placeholder="{{ detail.value }}"
+                                                value="{{ detail.value}}" [(ngModel)]="nom">
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                        <small *ngIf="formUpdateDetailsCampagne.get('nom').hasError('required')" class="text-danger">* Ce champ ne doit pas être vide</small>
+                                  </mat-form-field>
+                                    <small *ngIf="formUpdateDetailsCampagne.get('nom').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                    <small *ngIf="formUpdateDetailsCampagne.get('nom').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                </span>
+                                <span class="valeur" *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('prenom') ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput formControlName="prenom"
+                                               placeholder="{{ detail.value }}"
+                                               value="{{ detail.value}}" [(ngModel)]="prenom">
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                        <small *ngIf="formUpdateDetailsCampagne.get('prenom').hasError('required')" class="text-danger">* Ce champ ne doit pas être vide</small>
+                                  </mat-form-field>
+                                    <small *ngIf="formUpdateDetailsCampagne.get('prenom').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                    <small *ngIf="formUpdateDetailsCampagne.get('prenom').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                </span> <span class="valeur"
+                                              *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('motif') ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput formControlName="motif"
+                                               placeholder="{{ detail.value }}"
+                                               value="{{ detail.value}}" [(ngModel)]="motif">
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                  </mat-form-field>
+                                <small *ngIf="formUpdateDetailsCampagne.get('motif').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                <small *ngIf="formUpdateDetailsCampagne.get('motif').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                </span> <span class="valeur"
+                                              *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('telephone') ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput formControlName="telephone" type="number"
+                                               placeholder="{{ detail.value }}"
+                                                value="{{ detail.value}}" [(ngModel)]="telephone">
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                        <small *ngIf="formUpdateDetailsCampagne.controls['telephone'].invalid " class="text-danger">* Ce champ ne doit pas être vide</small>
+                                  </mat-form-field>
+                                <small *ngIf="formUpdateDetailsCampagne.get('telephone').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                <small *ngIf="formUpdateDetailsCampagne.get('telephone').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                </span> <span class="valeur"
+                                              *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('email') ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput type="email" formControlName="email"
+                                               placeholder="{{ detail.value }}"  value="{{ detail.value}}" [(ngModel)]="email">
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                        <small *ngIf="formUpdateDetailsCampagne.get('email').invalid" class="text-danger">* Format Email Incorect</small><br>
+                                        <small *ngIf="formUpdateDetailsCampagne.get('email').hasError('required')" class="text-danger">* Ce champ ne doit pas être vide</small>
+                                  </mat-form-field>
+                                <small *ngIf="formUpdateDetailsCampagne.get('email').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                <small *ngIf="formUpdateDetailsCampagne.get('email').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                <br>
+                                </span> <span class="valeur"
+                                              *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('type') ">
+                                    <mat-form-field appearance="legacy">
+                                        <input matInput type="text" formControlName="type"
+                                               placeholder="{{ detail.value }}"  value="{{ detail.value}}" [(ngModel)]="type" >
+                                        <mat-icon matSuffix>edit</mat-icon>
+                                        <small *ngIf="formUpdateDetailsCampagne.get('type').invalid" class="text-danger">* Ce champ ne doit pas être vide</small>
+                                  </mat-form-field>
+                                <small *ngIf="formUpdateDetailsCampagne.get('type').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                <small *ngIf="formUpdateDetailsCampagne.get('type').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                </span>
+                                 <span class="valeur" *ngIf="detail.isEditable && detail.libelle.toLowerCase().includes('echeance') ">
+                                        <mat-form-field appearance="legacy">
+                                                      <input matInput matInputAutofocus (keydown)="false" (click)="picker.open()"  (dateChange)="checkDateValidity($event)" [min]="today"
+                                                             placeholder="{{ detail.value }}" [matDatepicker]="picker"  formControlName="echeance" value="{{ detail.value }}" >
+                                                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                      <mat-datepicker #picker ></mat-datepicker>
+                                            <small *ngIf="formUpdateDetailsCampagne.get('echeance').invalid" class="text-danger">* La date choisie doit être superieure à la date d'aujourdhui!</small>
+                                                   </mat-form-field>
+                                          <small *ngIf="formUpdateDetailsCampagne.get('echeance').invalid" class="text-danger"><mat-icon matSuffix>warning</mat-icon></small>
+                                          <small *ngIf="formUpdateDetailsCampagne.get('echeance').valid" class="text-success"><mat-icon matSuffix>check_circle</mat-icon></small>
+                                </span>
+                            </li>
+                    <br>
+                    <button *ngIf="addSouscription == true" class="btn btn-primary"
+                            (click)="closeDialog(addSouscription)">Créer une souscription pour ce partenaire
+                    </button>
+
+                <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right ; margin: 5px">
+                    <button mat-raised-button type="button" color="warn" style="float: left" class=""
+                            matDialogClose="true">Fermer
+                    </button>
+
+                    <button *ngIf="isEditableConfirm" mat-raised-button color="primary" type="button" class="valid"
+                            (click)="confirmUpadte()" [disabled]="formUpdateDetailsCampagne.controls['echeance'].invalid" >Enregistrer
+                    </button>
+                    <button *ngIf="enableEdit && isEditable" mat-raised-button type="button"
+                            (click)="renderEditable()">Modifier
+                    </button>&nbsp;
+<!--                    <button mat-button (click)="testStatut()">rest solde</button>-->
+                </div>
+                </form>
+
+                </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

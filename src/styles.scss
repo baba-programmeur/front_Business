@@ -1,0 +1,274 @@
+/* You can add global styles to this file, and also import other style files */
+//@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+@import "assets/sass/lbd/variables";
+@import "~jsoneditor/dist/jsoneditor.min.css";
+
+
+.dialog {
+  .x_content {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 5em;
+    padding: 0.5em;
+    //min-height: 60vh;
+  }
+  .fermer {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1em;
+    margin: 0;
+    box-shadow: 0 0 2px #ddd;
+    background: white;
+  }
+}
+
+.x_panel {
+  .x_footer {
+    margin-top: 2em;
+    text-align: right;
+    padding: 0.5em 0 0.5em 0.5em;
+    background: white;
+    .fermer {
+      button {
+        background: $default-color;
+        color: white;
+        border: none;
+        margin-right: 5px;
+      }
+    }
+  }
+  .x_title {
+    h2 {
+      margin-top: 0;
+      font-size: 2.5rem;
+      border-bottom: 1px solid $primary-color;
+      margin-bottom: 0.2em;
+      padding: 0.5em 0 0.5em 0.5em;
+      button {
+        background: $primary-color;
+        color: white;
+        border: none;
+        margin-right: 5px;
+        //box-shadow: 0 0 3px 1px #00000045;
+        &:focus {
+          background: $primary-color;
+          color: white;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+.x_content {
+  .table-responsive {
+    thead {
+      tr {
+        background: #fff;
+        th {
+          color: #0f213c;
+          font-weight: 500;
+          padding: 15px;
+          border-bottom: 1px solid #7aa9da;
+        }
+      }
+    }
+    td{
+      padding: 15px;
+    }
+
+    td {
+      span.statut {
+        padding: 6px 16px;
+        border-radius: 9999px;
+        font-size: 14px;
+        line-height: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+        text-transform: lowercase;
+        display: inline-block;
+        width: 100px;
+      }
+      span.role {
+        color: white;
+        border-radius: 20px;
+        height: 20px;
+        line-height: 19px;
+        font-style: italic;
+        display: inline-block;
+        text-align: center;
+        padding: 0 1em;
+      }
+      span.actif {
+        display: block;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px #ddd;
+      }
+    }
+    td.first {
+      button {
+        border: 1px solid #bbb;
+        padding: 0.3em 0.5em;
+        background: white;
+        &:focus {
+          background: white;
+          border: 1px solid #bbb;
+        }
+      }
+
+      .dropdown-menu {
+        padding: 0.5em;
+        border-radius: 5px;
+        box-shadow: 0 0 10px 0 #aaa;
+        border: none;
+        min-width: 200px;
+        a {
+          display: block;
+          width: 100%;
+          padding: 0.5em;
+          cursor: pointer;
+          color: #555;
+          &:hover {
+            background: #eee;
+          }
+        }
+      }
+    }
+  }
+}
+
+table.dataTable
+
+.campagne-select {
+  max-height: 60vh !important;
+  position: absolute !important;
+  width: auto !important;
+}
+
+form {
+  p.error {
+    label {
+      color: indianred;
+      text-shadow: none;
+      font-size: 11px;
+      font-style: italic;
+    }
+  }
+  div.champs {
+    margin-bottom: 1.45em !important;
+    input,
+    select{
+      margin-bottom: 0 !important;
+      &.error {
+        border: 1px solid indianred;
+      }
+    }
+  }
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-button, .mat-icon-button, .mat-stroked-button {
+  color: inherit;
+  background: inherit !important;
+  /* background: transparent; */
+}
+
+::ng-deep .mat-dialog-container {
+  overflow-y: visible !important;
+  //color: #1b4870b5 !important;
+  // color: $primary-color !important;
+}
+
+.dropdown-usermenu {
+  box-shadow: 0 0 11px 0 #ccc;
+}
+
+::ng-deep .mat-raised-button.mat-valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}
+
+.campagne-select {
+  position: absolute;
+  width: auto;
+}
+
+.form-group {
+  label {
+    //color: $primary-color;
+    span.required {
+      color: red;
+    }
+  }
+}
+
+hr {
+  float: left;
+  width: 100%;
+}
+
+body{
+  overflow: hidden;
+}
+
+.main-panel {
+  background: #f5f5f5;
+}
+.main-container{
+  padding: 30px !important;
+}
+
+.ngx-pagination .current {
+  padding: 4px !important;
+  background: #2c5ba4 !important;
+  color: #fefefe;
+  cursor: default;
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+.ngx-pagination li {
+  padding: 4px !important;
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50% !important;
+  font-weight: 600 !important;
+  background: #fff;
+  margin-right: 10px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border:1px solid #eeeeee;
+}
+
+.ngx-pagination .small-screen{
+  display: none !important;
+}
+
+.ngx-pagination{
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  width: 100%;
+}
+.ngx-pagination li:first-child, .ngx-pagination li:last-child{
+  display: none !important;
+}
+
+.ngx-pagination a:hover, .ngx-pagination button:hover {
+  background: transparent !important;
+}

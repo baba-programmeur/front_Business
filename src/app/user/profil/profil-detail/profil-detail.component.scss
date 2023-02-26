@@ -1,0 +1,58 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.profil_detail {
+  .profile_img {
+    border: 1px solid #EEEEEE;
+    padding: 0.5em;
+    border-radius: 5px;
+    img {
+      cursor: pointer;
+    }
+  }
+  .x_panel {
+    .x_title {
+      h3 {
+        color: $primary-color;
+        margin-bottom: 2em;
+        text-align: center;
+        box-shadow: 0 1px 2px 0 #aaa;
+        padding: 0.5em 0;
+        font-weight: 400;
+      }
+    }
+  }
+  .x_content {
+    .profile_left {
+      text-align: center;
+    }
+    button {
+      //background: #87CB16;
+      background: $color-green;
+      color: white;
+    }
+  }
+
+  .details {
+    // margin-left: 2em;
+  }
+  .to_do {
+    li {
+      list-style: none;
+      border-bottom: 1px solid #eee;
+      border-left: 3px solid #eee;
+      background: transparent;
+      padding: 11px;
+      margin-bottom: 0;
+      border-radius: 0;
+      //color: $primary-color;
+      &:last-child {
+        border-bottom: none;
+      }
+      p {
+        span {
+          color: #aaaaaa;
+        }
+      }
+    }
+  }
+}

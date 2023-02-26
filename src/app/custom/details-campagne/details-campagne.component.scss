@@ -1,0 +1,48 @@
+@import "../../../assets/sass/lbd/variables";
+.details {
+  overflow: auto;
+  table {
+    width: 100%;
+    th {
+      min-width: 100px;
+      padding-left: 5px;
+      padding-right: 5px;
+      font-weight: 600;
+      font-size: 1.3rem;
+      background: #eee;
+      font-style: italic;
+    }
+    td {
+      min-width: 100px;
+      padding-left: 5px;
+      padding-right: 5px;
+      .statut {
+        padding: 0.1em 0.5em;
+        color: white;
+        border-radius: 5px;
+        font-style: inherit;
+        font-size: 1.2rem;
+        min-width: 56px;
+        display: inline-block;
+        text-align: center;
+        &.c_partiel {
+          background: $color-partiel;
+        }
+        &.c_valide {
+          background: $color-valide;
+        }
+        &.c_erreur {
+          background: $color-echec;
+        }
+        &.c_initie {
+          background: $color-initie;
+        }
+        &.c_lock {
+          background: #888888;
+        }&.c_attente_envoi {
+           background: $color-initie;
+         }
+      }
+    }
+  }
+}

@@ -1,0 +1,170 @@
+<div class="edit-entity dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <form [formGroup]="formGroup" class="form-horizontal form-label-left">
+        <div class="x_title">
+          <h2>{{ title }}</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br>
+
+          <ng-container *ngFor="let field of fields; let i = index">
+            <div class="form-group" *ngIf="!field.hide">
+
+              <div class="" [ngSwitch]="field.type">
+                <!--************************************-->
+                <!--*** Gestion champ de type 'text' ***-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'text'">
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           placeholder="{{ field?.label }}"
+                           type="text"
+                           readonly="{{ field?.disabled ? field?.disabled : false }}"
+                           value="{{ field?.valeur }}"
+                           id="{{ field?.tag }}"
+                           formControlName="{{field?.tag}}">
+                  </mat-form-field>
+                </div>
+
+                <!--<div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'email'">
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           placeholder="{{ field?.label }}"
+                           type="email"
+                           readonly="{{ field?.disabled ? field?.disabled : false }}"
+                           value="{{ field?.valeur }}"
+                           id="{{ field?.tag }}"
+                           formControlName="{{field?.tag}}">
+                  </mat-form-field>
+                  <span class="danger" *ngIf="formGroup.controls[field?.tag].errors.pattern">
+                    {{ field?.label }} n'est pas correct
+                  </span>
+                </div>-->
+
+                <!--************************************-->
+                <!--*** Gestion champ de type 'textarea' ***-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'textarea'">
+                  <mat-form-field class="full-width">
+                    <textarea matInput
+                              placeholder="{{ field?.label }}"
+                              rows="5"
+                              type="text"
+                              value="{{ field?.valeur }}"
+                              id="{{ field?.tag }}"
+                              formControlName="{{field?.tag}}"></textarea>
+                  </mat-form-field>
+                </div>
+
+                <!--************************************-->
+                <!--*** Gestion champ de type 'number' ***-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'number'">
+                  <mat-form-field class="full-width">
+                    <input matInput
+                           placeholder="{{ field.label }}"
+                           type="number"
+                           value="{{ field.valeur }}"
+                           id="{{ field.tag }}"
+                           formControlName="{{field.tag}}">
+                  </mat-form-field>
+                </div>
+
+                <!--************************************-->
+                <!--*** Gestion champ de type 'date' ***-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'date'">
+                  <mat-form-field class="full-width">
+                    <input readonly matInput placeholder="{{ field.label }}" [matDatepicker]="picker_dm" [(ngModel)]="field.valeur" formControlName="{{ field.tag }}">
+                    <mat-datepicker-toggle matSuffix [for]="picker_dm"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_dm></mat-datepicker>
+                  </mat-form-field>
+
+                  <!--                  <mat-form-field class="full-width">-->
+                  <!--                    <input matInput-->
+                  <!--                           placeholder="{{ field.label }}"-->
+                  <!--                           type="text"-->
+                  <!--                           value="{{ field.valeur }}"-->
+                  <!--                           id="{{ field.tag }}"-->
+                  <!--                           formControlName="{{field.tag}}">-->
+                  <!--                  </mat-form-field>-->
+                </div>
+
+                <!--************************************-->
+                <!--** Gestion champ de type 'select' **-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'select'">
+                  <label for="{{ field?.tag }}" style="width: 100%"> {{ field?.label }}
+                    <select class="form-control" formControlName="{{field?.tag}}" (change)="onChange(field)">
+                      <option value=""></option>
+                      <option *ngFor="let opt of field?.options" value="{{ opt.value }}" [disabled]="opt?.statut">
+                        {{ opt.label }}
+                      </option>
+                    </select>
+                  </label>
+                  <p *ngIf="formGroup.controls[field.tag].invalid && (formGroup.controls[field.tag].dirty || formGroup.controls[field.tag].touched)"
+                     class="error">
+
+                    <label *ngIf="formGroup.controls[field.tag].errors.required">
+                      {{ field.tag }} obligatoire.
+                    </label>
+                  </p>
+                </div>
+
+                <!--*************************************-->
+                <!--Gestion champ de type 'switch toggle'-->
+                <!--*************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'toggle'" style="text-align: right">
+                  <label style="position: absolute;
+                                left: 11px;
+                                bottom: 2px;
+                                color: #999;
+                                font-weight: normal;
+                                font-size: 1.3rem;">
+                    {{ field.label }}</label>
+                  <ng-switchery (change)="onChange(field)"
+                                [(ngModel)]="field.valeur"
+                                [id]="field.tag"
+                                formControlName="{{field.tag}}" ></ng-switchery>
+                </div>
+
+                <!--************************************-->
+                <!--Gestion champ de type 'autocomplete'-->
+                <!--************************************-->
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngSwitchCase="'autocomplete'">
+                  <mat-form-field class="full-width">
+                    <input type="text" matInput
+                           placeholder="{{ field.label }}"
+                           formControlName="{{ field.tag }}"
+                           [matAutocomplete]="auto"
+                           [(ngModel)]="field.valeur.label"
+                    >
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of field.options"
+                                  [value]="option.label"
+                                  (onSelectionChange)="autoCompleteSelectEvent(option, field)"
+                      >
+                        <span hidden class="value">{{ option.value }}</span>
+                        {{option.label}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+          </ng-container>
+
+        </div>
+          <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+            <button *ngIf="!hideCancelButton" mat-raised-button class="" (click)="onCancel()" style="margin-right: 0.5em">Annuler</button>
+            <button mat-raised-button type="submit" class="valide" [disabled]="!formGroup.valid" (click)="onSubmit()">Valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

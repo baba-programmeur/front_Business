@@ -1,0 +1,36 @@
+variables:
+  CLI_VERSION: 8.2.2
+
+#image: trion/ng-cli:${CLI_VERSION}
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - deploy
+
+deploy-staging:
+  stage: deploy
+  environment:
+    name: staging
+    url: http://172.30.4.63/api
+  before_script:
+    #- su apt-get install openssh
+    #- su apt-get install -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apk add -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    #- apk add --no-cache shadow
+    #- chmod 600 id_rsa
+    - mkdir -p ~/.ssh
+    - ssh-add id_rsa
+    - ssh-keyscan -H '172.30.4.63' >> ~/.ssh/known_hosts
+    - ssh-keyscan -H '172.30.4.213' >> ~/.ssh/known_hosts
+    - ssh-keyscan 172.30.4.63 | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh -o StrictHostKeyChecking=no selle@172.30.4.63 "cd /var/www/html/upayangular && git checkout develop  && git stash && git pull origin develop && npm run build:test &&  cp -r dist/* ../upaybusiness && exit"
+    - ssh -o StrictHostKeyChecking=no ses@172.30.4.213 "cd /var/www/html/upayangular && git checkout develop  && git stash && git pull origin develop && npm run build:test &&  cp -r dist/* ../upaybusiness && exit"
+  #only:
+    #  - master

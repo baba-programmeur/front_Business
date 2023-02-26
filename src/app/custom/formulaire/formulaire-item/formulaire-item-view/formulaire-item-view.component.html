@@ -1,0 +1,56 @@
+<div class="formulaire-item-view" [ngClass]="{'selected': selectedType == 'item' && selected}">
+    <div class="menu">
+        <ul>
+            <li class="add_item">
+                <a (click)="onAddItem(formItem)" title="Ajouter une ligne/colonne"><i class="fa fa-plus"></i></a>
+            </li>
+
+            <li class="add_champ">
+                <a (click)="onAddChamp(formItem)" title="Ajouter un champ"><i class="fa fa-plus-circle"></i></a>
+            </li>
+
+            <li class="edit_item">
+                <a (click)="onEdit(formItem, 'item')" *ngIf="formItem.type === 'LIGNE'" title="Modifier la ligne"><i class="fa fa-edit"></i></a>
+                <a (click)="onEdit(formItem, 'item')" *ngIf="formItem.type === 'COLONNE'" title="Modifier la colonne"><i class="fa fa-edit"></i></a>
+            </li>
+
+            <li class="delete_item">
+                <a (click)="onDeleteItem(formItem)" *ngIf="formItem.type === 'LIGNE'" title="Supprimer la ligne"><i class="fa fa-trash"></i></a>
+                <a (click)="onDeleteItem(formItem)" *ngIf="formItem.type === 'COLONNE'" title="Supprimer la colonne"><i class="fa fa-trash"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="items" *ngIf="formItem.formulaireItems">
+        <ul>
+            <li *ngFor="let formItem of formItem.formulaireItems">
+                <app-formulaire-item-view [formItem]="formItem"></app-formulaire-item-view>
+            </li>
+        </ul>
+    </div>
+
+    <div class="champs">
+        <form>
+            <ng-container *ngFor="let champ of formItem.champs">
+                <div *ngIf="champ.type == 'select'" [ngClass]="{'selected': selectedType == 'champ' &&  selected && champ.id == selectedChamp?.id}"
+                     [ngStyle]="{'width': champWidth + '%', 'display': champDisplay}" class="form-group">
+                    <label for="{{ champ.slug }}">{{ champ.label}}
+                        <select (focus)="onEdit(champ, 'champ')" class="form-control" id="{{ champ.slug }}"
+                                name="{{ champ.slug }}">
+                            <option *ngFor="let option of parseOptions(champ.optionsValue)" value="{{ option.value }}">{{ option.label }}</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div *ngIf="champ.type != 'select'" [ngClass]="{'selected': selectedType == 'champ' && selected && champ.id == selectedChamp?.id}"
+                     [ngStyle]="{'width': champWidth + '%', 'display': champDisplay}" class="form-group">
+                    <label for="{{ champ.slug }}"> {{ champ.label}}
+                        <input (focus)="onEdit(champ, 'champ')" autocomplete="off" class="form-control" id="{{ champ.slug }}"
+                               name="{{ champ.slug }}" placeholder="{{ champ.placeholder }}" readonly
+                               type="{{ champ.type }}"/>
+                    </label>
+                </div>
+            </ng-container>
+        </form>
+    </div>
+</div>

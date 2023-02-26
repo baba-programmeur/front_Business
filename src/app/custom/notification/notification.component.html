@@ -1,0 +1,17 @@
+<app-show-list
+        [title]="'notifications'"
+        [iconTitle]="'fa fa-list'"
+        [add]="false"
+        [headers]="headers"
+        [fieldsForSearch]="fieldsForSearch"
+        (filterChange)="getNotifications(null, $event)"
+        [entities]="entities"
+        [totalItems]="totalItems"
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (onDetailClicked)="onDetails($event)"
+        (onEditClicked)="onEdit($event)"
+        (onDeleteClicked)="onDelete($event)"
+        (onExportDataClicked)="exporter(filtres)"
+        (onPaginationClicked)="getNotifications($event, filtres)"
+></app-show-list>

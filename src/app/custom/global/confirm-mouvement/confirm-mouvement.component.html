@@ -1,0 +1,64 @@
+<div class="dialog confirm-mouvement">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Mouvement solde</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br>
+
+          <ul>
+            <li>
+              <span class="libelle">Type mouvement</span>
+              <span class="valeur">{{ mouvement.type }}</span>
+            </li>
+            <li>
+              <span class="libelle">Partenaire</span>
+              <span class="valeur">{{ souscription.nomes }}</span>
+            </li>
+            <li>
+              <span class="libelle">Code partenaire</span>
+              <span class="valeur">{{ souscription.code_partenaire }}</span>
+            </li>
+            <li>
+              <span class="libelle">Référence mouvement</span>
+              <span class="valeur">{{ mouvement.reference }}</span>
+            </li>
+            <li>
+              <span class="libelle">Montant</span>
+              <span class="valeur">{{ mouvement.montant }}</span>
+            </li>
+            <li>
+              <span class="libelle">Type compte</span>
+              <span class="valeur">{{ mouvement.typeCompte }}</span>
+            </li>
+            <li>
+              <span class="libelle">Libellé compte</span>
+              <span class="valeur">{{ mouvement.libelleCompte }}</span>
+            </li>
+            <li>
+              <span class="libelle">Numéro compte</span>
+              <span class="valeur">{{ mouvement.numeroCompte }}</span>
+            </li>
+            <li>
+              <span class="libelle">Date mouvement</span>
+              <span class="valeur">{{ mouvement.dateVersement | date }}</span>
+            </li>
+
+          </ul>
+
+          <div class="ln_solid"></div>
+
+          <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+            <button mat-raised-button type="button" class="" (click)="closeDialog({canceled: true})">Annuler</button>
+            <button mat-raised-button type="button" class="valide" (click)="closeDialog({canceled: false})">Confirmer</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

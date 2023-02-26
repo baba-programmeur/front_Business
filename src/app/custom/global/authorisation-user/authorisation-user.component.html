@@ -1,0 +1,55 @@
+<div class="confirm-delete">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Authorisations</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div *ngIf="authorisations.length != 0" class="x_content">
+          <br>
+          <p>Liste des autorisations</p>
+
+          <!--<ul>
+            <li *ngFor="let field of fields">
+              <span class="libelle">{{ field.label }}</span>
+              <span class="valeur">{{ field.valeur }}</span>
+            </li>
+          </ul>-->
+
+          <div class="ln_solid"></div>
+
+          <table class="table table-striped bulk_action">
+            <thead>
+              <tr class="headings">
+                <th class="column-title no-link first"><span class="nobr">Active</span></th>
+                <th class="column-title no-link first"><span class="nobr">Code</span></th>
+                <th class="column-title no-link first"><span class="nobr">Libelle</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let authorisation of authorisations">
+                <td>
+                  <mat-checkbox [value]="authorisation?.id" [checked]="isActiveAuthorisation(authorisation)" (change)="addAuthorisation(authorisation)"></mat-checkbox>
+                </td>
+                <td>{{ authorisation?.code }}</td>
+                <td>{{ authorisation?.libelle }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="ln_solid"></div>
+
+          <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+            <button mat-raised-button type="button" class="" (click)="closeDialog({canceled: true})">Annuler</button>
+            <button mat-raised-button type="button" class="valide" (click)="closeDialog({canceled: false})">Mettre à jour</button>
+          </div>
+
+        </div>
+        <div *ngIf="!authorisations || authorisations.length == 0" class="x_content">
+          <h5 class="text-center">Pas d'authorisations disponibles</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

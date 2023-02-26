@@ -1,0 +1,39 @@
+@import "../../../../../assets/sass/lbd/variables";
+
+.confirm-delete {
+  p {
+    text-align: center;
+    margin-bottom: 2em;
+  }
+  ul {
+    padding: 0;
+    margin-bottom: 3em;
+    li {
+      list-style: none;
+      padding: 0.5em;
+      border-left: 3px solid;
+      margin-bottom: 0.5em;
+      border-bottom: 1px solid #eee;
+      span {
+        &.libelle {
+
+        }
+        &.valeur {
+          float: right;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .mat-raised-button.valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}
+
+.row {
+  margin-bottom: 12px;
+  margin-top: 5px;
+}

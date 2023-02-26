@@ -1,0 +1,70 @@
+<div class="filtres" style="margin-top: 0px !important;">
+    <div class="search">
+        <label><i class="material-icons">search</i></label>
+        <input style="background: #fff;border:1px solid #0e223c" (input)="onSearch(true)" [(ngModel)]="searchKey" placeholder="Rechercher ici par ...." type="text">
+    </div>
+
+    <!--<div *ngIf="filtre" class="filtre">
+        <button #filtreButton class="filtrer btn btn-default" type="button"><i class="fa fa-filter"></i>
+            Filtrer
+        </button>
+        <div *ngIf="filtering" class="filtre-menu">
+            <form class="form">
+                <div class="form-group">
+                    <mat-form-field>
+                        <input [matAutocomplete]="auto1" matInput
+                               placeholder="Colonne"
+                               type="text">
+                        <mat-autocomplete #auto1="matAutocomplete">
+                            <mat-option (onSelectionChange)="onSelectFieldForFilter(field)"
+                                        *ngFor="let field of fieldsForFilter"
+                                        [value]="field.name">
+                                {{ field.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field>
+                        <input [matAutocomplete]="auto" matInput
+                               placeholder="Valeur"
+                               type="select">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option (onSelectionChange)="onSelectFieldForSearch(filterField, true, option)"
+                                        *ngFor="let option of filterOptions"
+                                        [value]="option.libelle">
+                                <span class="value" hidden>{{ option.value }}</span>
+                                {{option.libelle}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+            </form>
+        </div>
+    </div>-->
+
+    <div #fields *ngIf="searching" class="fields" [ngStyle]="{'right': fieldRight + 'px'}">
+        <ul *ngIf="fieldsForSearch && fieldsForSearch.length != 0">
+            <li *ngFor="let field of fieldsForSearch">
+                <a (click)="onSelectFieldForSearch(field)">
+                    <em class="ch">Rechercher dans </em>
+                    <strong class="field">{{ field.name }}</strong>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="filter-bar" *ngIf="searchArray && searchArray.length != 0">
+      <p #searchItems class="search-items">
+        <span *ngFor="let item of searchArray" class="search-item {{ item.tag }}">
+          <em class="libelle">{{ item.libelle }}</em>
+          <em class="value">{{ item.valueLabel }}</em>
+          <a (click)="onClose(item)" class="fermer-filtre">x</a>
+        </span>
+      </p>
+    </div>
+
+</div>

@@ -1,0 +1,31 @@
+<div class="m-roles" style="display: flex; flex-direction: column">
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <h3>
+      Liste des rôles
+    </h3>
+    <div class="menu pull-right">
+      <button class="btn btn-primary" (click)="onAddRole()"><i class="fa fa-plus-circle"></i> Nouveau rôle</button>
+    </div>
+  </div>
+  <hr>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive table-striped">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let role of roles">
+      <td>{{ role.name }}</td>
+      <td>{{ role.description }}</td>
+      <td class="habilitations">
+        <button class="btn btn-success habilitation-list" (click)="onListHabilitations(role)"><i class="fa fa-list"></i> Habilitations</button>
+        <button class="btn btn-default edit" (click)="editRole(role)"><i class="fa fa-edit"></i> Modifier</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

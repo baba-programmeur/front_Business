@@ -1,0 +1,5 @@
+<div  class="btn_assoc" [ngStyle]="{'border-radius':radius,'background':background_button,'color':color_texte,'height':height,'width':width,'max-width':maxwidth}">
+  <mat-icon [ngStyle]="{'width':icone_size,'height':icone_size,'font-size':icone_size}" style="margin-right: 10px" *ngIf="icone_left.length >0">{{icone_left}}</mat-icon>
+  <span [ngStyle]="{'font-size':texte_size,'font-weight': bold_texte ? '600':''}">{{texte}}</span>
+  <mat-icon [ngStyle]="{'width':icone_size,'height':icone_size,'font-size':icone_size}" style="margin-left: 10px" *ngIf="icone_right.length >0">{{icone_right}}</mat-icon>
+</div>

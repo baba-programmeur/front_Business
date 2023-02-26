@@ -1,0 +1,64 @@
+<style>
+  .champ {
+    display: inline-block;
+    position: relative;
+    height: 80px;
+    padding: 0 1em 0 0;
+  }
+  .champ mat-form-field {
+    width: 100%;
+  }
+  .champ .error {
+    position: absolute;
+    left: 30px;
+    top: 42px;
+    width: 182px;
+  }
+  .boutons {
+    float: left;
+    width: 100%;
+  }
+</style>
+<div class="add-detail-campagne">
+  <h1 mat-dialog-title><i class="fa fa-list"></i> Liste des erreurs sur le fichier </h1>
+  <div mat-dialog-content style="max-height: 75vh">
+    <div *ngIf="nbErrors" style="border-bottom: 1px solid #eee;margin-bottom: 2em;">
+      <p style="color: red">Le fichier {{ file?.name }} contient <span class="nb_error" style="font-weight: 600">{{ nbErrors }}</span> erreurs</p>
+    </div>
+
+    <div class="content">
+
+      <!-- Mettre ici le tableau des erreurs -->
+      <table class="table table-bordered table-responsive">
+        <thead>
+          <tr>
+            <td>Ref. Ligne</td>
+            <td>Erreurs</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let error of erreurs">
+            <td>
+              #{{ error?.ligne }}
+            </td>
+            <td>
+              <table class="table table-bordered">
+                <tr *ngFor="let err of error?.tabError; let index = index">
+                  <td>{{ index }}</td>
+                  <td>
+                    {{ err }}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="boutons">
+        <button class="cancel btn btn-default" (click)="onCancel()" style="background: red; color: white; border: none">Annuler campagne</button>
+        <button (click)="exportAsExcelFile()" class="submit btn btn-primary pull-right" style="background: #2C5AA3; color: white; border: none">Télécharger les erreurs</button>
+      </div>
+    </div>
+  </div>
+</div>

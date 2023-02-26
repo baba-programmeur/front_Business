@@ -1,0 +1,48 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.canal-endpoints {
+  .x_title {
+    h2 {
+      a {
+        font-size: 35px;
+        width: 35px;
+        vertical-align: top;
+        cursor: pointer;
+        &.add {
+          color: limegreen;
+        }
+        &.cancel {
+          color: red;
+        }
+      }
+    }
+  }
+  form {
+    .form-group {
+      margin: 0;
+      margin-bottom: 1em;
+      label {
+        width: 100%;
+        span {
+          font-size: 11px;
+          vertical-align: middle;
+          color: #888;
+          font-weight: 200;
+        }
+      }
+
+      .form-control {
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+::ng-deep .ace_editor {
+  min-height: 200px;
+}
+::ng-deep .mat-raised-button.valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}

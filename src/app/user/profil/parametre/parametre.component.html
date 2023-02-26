@@ -1,0 +1,18 @@
+<div class="maincontent">
+    <div class="grid" *ngFor="let parametrage of parametrageTab">
+        <div class="item">
+            <h3>{{ parametrage?.libelle }}</h3>
+            <p>{{ parametrage?.description }}</p>
+            <span class="mails">{{ modifierListe(getLigneParametrage(parametrage)?.valeur) }}</span>
+            <div style="margin-bottom: 20px">
+                <a (click)="editValue(parametrage.id, getLigneParametrage(parametrage)?.etat, getLigneParametrage(parametrage)?.valeur)" class="link">Modifier liste adresse mail</a>
+            </div>
+            <div class="foot">
+                <mat-checkbox [checked]="getLigneParametrage(parametrage)?.etat" (click)="updateLigneParametrage(parametrage, getLigneParametrage(parametrage)?.valeur, getLigneParametrage(parametrage)?.etat)" color="primary"> Activer la {{ parametrage?.libelle | lowercase }}</mat-checkbox>
+            </div>
+            <!--<div style="display: flex;justify-content: flex-end">
+                <button class="btn btn-success" (click)="updateLigneParametrage()">Valider</button>
+            </div>-->
+        </div>
+    </div>
+</div>

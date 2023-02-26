@@ -1,0 +1,106 @@
+<div class="register_content">
+  <div class="background">
+    <img class="left" src="assets/img/businessWoman.jpg" alt="">
+    <img class="right" src="assets/img/businessWoman.jpg" alt="">
+  </div>
+  <div class="login">
+    <div>
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="register_content">
+            <form [formGroup]="registerForm">
+              <h1 class="connect"><span class="app">UPay Business</span> Création du compte</h1>
+
+              <div class="row login-form">
+                <div class="error alert alert-danger" role="alert" *ngIf="message">
+                  <i class="fa fa-warning"></i> {{ message }}
+                </div>
+
+                <div class="champs">
+                  <input [ngClass]="{'error': registerForm.controls['username']?.invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)}" type="text" class="form-control" [(ngModel)]="username" formControlName="username" placeholder="Nom d'utilisateur" required="" />
+                  <p *ngIf="registerForm.controls['username']?.invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)"
+                     class="error">
+
+                    <label *ngIf="registerForm.controls['username'].errors.required">
+                      Le nom d'utilisateur est obligatoire.
+                    </label>
+                    <label *ngIf="registerForm.controls['username'].errors.pattern">
+                      Le nom d'utilisateur est doit respecter le pattern.
+                    </label>
+                  </p>
+                </div>
+
+                <div class="champs">
+                  <input [ngClass]="{'error': registerForm.controls['email']?.invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)}" type="email" class="form-control" [(ngModel)]="email" formControlName="email" placeholder="Adresse mail" required="" />
+                  <p *ngIf="registerForm.controls['email']?.invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)"
+                     class="error">
+
+                    <label *ngIf="registerForm.controls['email'].errors.required">
+                      L'adresse mail est obligatoire.
+                    </label>
+                    <label *ngIf="registerForm.controls['email'].errors.email">
+                      Merci de saisir une adresse mail valide.
+                    </label>
+                  </p>
+                </div>
+
+                <div class="champs">
+                  <input [ngClass]="{'error': registerForm.controls['prenom']?.invalid && (registerForm.controls['prenom'].dirty || registerForm.controls['prenom'].touched)}" type="text" class="form-control" [(ngModel)]="prenom" formControlName="prenom" placeholder="Prénom" required="" />
+                  <p *ngIf="registerForm.controls['prenom']?.invalid && (registerForm.controls['prenom'].dirty || registerForm.controls['prenom'].touched)"
+                     class="error">
+
+                    <label *ngIf="registerForm.controls['prenom'].errors.required">
+                      Le prénom est obligatoire.
+                    </label>
+                  </p>
+                </div>
+
+                <div class="champs">
+                  <input [ngClass]="{'error': registerForm.controls['nom']?.invalid && (registerForm.controls['nom'].dirty || registerForm.controls['nom'].touched)}" type="text" class="form-control" [(ngModel)]="nom" formControlName="nom" placeholder="Nom" required="" />
+                  <p *ngIf="registerForm.controls['nom']?.invalid && (registerForm.controls['nom'].dirty || registerForm.controls['nom'].touched)"
+                     class="error">
+
+                    <label *ngIf="registerForm.controls['nom'].errors.required">
+                      Le nom est obligatoire.
+                    </label>
+                  </p>
+                </div>
+
+                <div class="champs">
+                  <input [ngClass]="{'error': registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)}" type="password" class="form-control" [(ngModel)]="password" formControlName="password" placeholder="Mot de passe" required />
+                  <p *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
+                     class="error">
+
+                    <label *ngIf="registerForm.controls['password'].errors.required">
+                      Le mot de passe est obligatoire.
+                    </label>
+                  </p>
+                </div>
+
+                <div class="champs">
+                  <input type="password" class="form-control" [(ngModel)]="passwordConfirm" formControlName="passwordConfirm" placeholder="Confirmation du mot de passe" required />
+                </div>
+
+                <div class="champs submit">
+                  <button class="btn btn-default submit" [disabled]="!registerForm.valid" (click)="onRegister()">S'inscrire</button>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                  <div class="clearfix"></div>
+                  <br />
+
+                  <div class="copyright">
+                    <a href="#/"><img src="assets/img/logo.png" alt=""></a>
+                    <p>©2019 Tous droits réservés. UPay B2B! backoffice.</p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

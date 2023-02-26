@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="main-panel">
+        <div class="separador">
+            <app-navbar-cmp>
+            </app-navbar-cmp>
+        </div>
+
+        <div class="parent">
+            <aside #menu  class="show-menu menu">
+                <div style="width:140px;margin: 20px auto 20px auto;border-radius: 50%;display: flex;align-items: center;justify-content: center;flex-direction: column">
+                    <div style="display: flex;align-items: center;gap:10px">
+                        <span style="font-size: 45px;color: #225c9f"  class="icon material-icons">badge</span>
+                        <div style="display: flex;line-height: 1;flex-direction: column;justify-content: center;align-items: flex-start;border-left: 1px solid #ccc;
+    padding-left: 15px;">
+                            <span style="color: #0f213c;margin-top: 5px;text-align: center"><b>{{ this.raisonsocial}}</b></span>
+                            <span style="color: #0f213c;margin-top: 5px;text-align: center"><b>{{ this.codepartenaire}}</b></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav responsive-nav">
+                        <li *ngFor="let item of habilitations" routerLinkActive="active" class="menu-li" style="border:none !important;">
+                            <a (click)="anchorClicked(e)" #e class="menu-parent" id="{{ item.tag }}" style="padding: 5px;margin: 10px 0;border-radius: 5px">
+                                <span style="height: auto !important;color: #122646;padding: 0.3em 0;margin: 0" id="additionalchevron" class="icon material-icons">{{ item.icon }}</span>
+                                <span>{{ item.tag }}</span>
+                            </a>
+                            <ul class="nav child_menu">
+                                <li *ngFor="let habilitation of item.habilitations" [filter]="habilitation.name">
+                                    <a style="padding: 8px 8px 8px 12px;margin-top: 5px;margin-bottom:5px; border-radius: 5px" href="" routerLink="{{ getPathFromHabilitationName(habilitation.name) }}" routerLinkActive="active">
+                                        <span class="action">{{ habilitation.description | slice: 0 : 20 }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <div class="main-container" style="width:100%;overflow-y: scroll; padding: 30px;margin-top: 0px !important;">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <div *ngIf="isMap('maps')">
+            <footer-cmp></footer-cmp>
+        </div>
+    </div>
+
+</div>

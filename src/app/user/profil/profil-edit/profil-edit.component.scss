@@ -1,0 +1,23 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.profil_edit {
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  form {
+    .form-group {
+      ::ng-deep button {
+        &.valide {
+          background: green;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .mat-raised-button.mat-valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}

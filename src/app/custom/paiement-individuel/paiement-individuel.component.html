@@ -1,0 +1,143 @@
+<div class="paiement-indiv dialog">
+  <label class="title"><i class="fa fa-plus"></i>{{ typeCampagne === 'DECAISSEMENT' ? 'Paiement individuel' : 'Emission de facture'}} </label>
+  <mat-divider></mat-divider>
+  <div class="body">
+    <form [formGroup]="campagneForm" (ngSubmit)="validerCampagne()">
+      <span class="sub-title text-center">Mode de paiement</span>
+      <div class="form-div" style="display: flex; flex-direction: row; align-content: space-between; align-items: center">
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Nom de la campagne"
+                   required
+                   formControlName="nomCampagneCtrl"
+                   [(ngModel)]="nomCampagne">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'">
+          <mat-form-field>
+            <mat-label>Type de canal</mat-label>
+            <select matNativeControl required
+                    formControlName="typeCanalCtrl"
+                    [(ngModel)]="typeCanalId"
+                    (change)="onSelectTypeCanal()">
+              <option *ngFor="let type of typeCanals" value="{{ type.id }}">{{ type.libelle }}</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'">
+          <mat-form-field>
+            <mat-label>Canal de réception</mat-label>
+            <select matNativeControl required
+                    formControlName="canalCtrl"
+                    [(ngModel)]="canalLibelle">
+              <option *ngFor="let canal of canals" value="{{ canal.libelle }}">{{ canal.libelle }}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <span class="sub-title text-center">Informations personnelles</span>
+      <div class="form-div">
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="ID client" formControlName="idClient">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Prénom" formControlName="prenom">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Nom" formControlName="nom">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Adresse mail" formControlName="mail">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Téléphone" formControlName="telephone">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'ENCAISSEMENT'">
+          <mat-form-field>
+            <input matInput placeholder="Numéro facture" formControlName="numeroFacture">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'ENCAISSEMENT'">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Echèance" formControlName="echeance">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Montant" formControlName="montant">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'">
+          <mat-form-field>
+<!--            <input matInput placeholder="Type pièce" formControlName="typePiece">-->
+            <mat-label>Type de pièce</mat-label>
+            <mat-select placeholder="Type pièce" formControlName="typePiece">
+              <mat-option value="cni">CNI</mat-option>
+              <mat-option value="passport">PASSPORT</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12" *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'">
+          <mat-form-field>
+            <input matInput placeholder="Numéro pièce" formControlName="numeroPiece">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Motif" formControlName="motif">
+          </mat-form-field>
+        </div>
+
+        <div class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Commentaire" formControlName="commentaire">
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="typeCanalLibelle == 'banque'" class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Numero Compte" formControlName="numeroCompte">
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="typeCanalLibelle == 'banque'" class="champ col-md-4 col-sm-6 col-xs-12">
+          <mat-form-field>
+            <input matInput placeholder="Nom Banque" formControlName="banque">
+          </mat-form-field>
+        </div>
+
+        <div class="form-div col-md-12 pull-right">
+<!--          <button class="col-md-2 cancel btn btn-default" (click)="onCancel()" style="background: red; color: white; border: none">Annuler</button>-->
+          <button class="col-md-2 submit btn btn-primary" [disabled]="campagneForm?.invalid" style="background: #2C5AA3; color: white; border: none">Valider</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

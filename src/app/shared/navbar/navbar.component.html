@@ -1,0 +1,68 @@
+<nav class="container-fluid" style="padding-right:0;padding-left:0;display: flex; justify-content: space-between;width:100%">
+    <div style="display: flex;width: 100%">
+        <div style="width: 250px">
+            <div class="logo" style="width: 120px;margin: auto; background: white; padding: 5px; border-radius: 5px;">
+                <img src="assets/img/logook.png" width="120px"  alt="">
+            </div>
+        </div>
+        <div style="flex: 1;background: #fff;display: flex;align-items: center">
+            <div style="flex:1;display: flex;align-items: center">
+
+                <div class="solde" *ngIf="solde != null" style="margin-left: calc((100vw/2) - 430px);flex: 1; padding: 5px;">
+                    <div style="display: flex;position:relative;width:367px;align-items: center; height: 60px;gap:4px;justify-content: center">
+                        <div class="bleft">
+                            SOLDE&nbsp;&nbsp;( {{ devise }} )
+                        </div>
+                        <div class="bright">
+                            {{ solde | number }}
+                        </div>
+                        <div (click)="rafraichirSolde()" [class.rotate]="rotate" style="cursor:pointer;display:flex;align-items:center;justify-content:center;position:absolute;background: #2b6ebc;border: 3px solid #fff;width: 39px;height: 39px;border-radius: 50%">
+                            <i class="material-icons" style="color:#fff">autorenew</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;align-items: center;justify-content: flex-end;margin-right: 24px;">
+                <div *ngIf="pays_flag" class="flag" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 25px;">
+                    <img src="{{ pays_flag }}" [appDefault]="'assets/img/whiteflag.png'" style="box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;border-radius: 5px" alt="" width="35px" title="{{ pays }}">
+                </div>
+                <div  class="profil" style="position: relative; display: flex; cursor: pointer; align-items: center; justify-content: flex-end; margin-right: 0.2em;">
+                    <div class="dropdown-toggle" data-toggle="dropdown">
+                        <span style="font-size: 35px; color: #225c9f; cursor: pointer" class="material-icons">person</span>
+                    </div>
+                    <div class="dropdown-menu" style="left: auto !important; right: 0;">
+                        <div style="display: flex; flex-direction: column; align-items: center; padding: 15px; width: 220px;">
+                   <span>
+                     <img src="" appDefault="assets/img/user.png" width="80px" alt="">
+                   </span>
+                            <span style="margin: 4px">
+                       {{ userInfo?.firstName }} {{ userInfo?.lastName | uppercase }}
+                    </span>
+                            <span>
+                        <span class="role badge" style="padding: 5px" *ngFor="let role of roles">
+                            {{ parseRole(role) | uppercase }}
+                        </span>
+                    </span>
+                        </div>
+                        <div style="display: flex;justify-content: center;align-items: center; padding: 10px">
+                            <div class="action-profil">
+                                <a href="#" style="color: white !important;" (click)="goToProfil()">
+                                    <i class="material-icons" style="font-size: 18px">person</i><br>Profil
+                                </a>
+                            </div>
+                            <div class="action-profil">
+                                <a href="#" style="color: white !important;" routerLink="/profil/change-password">
+                                    <i class="material-icons" style="font-size: 18px">lock</i><br>Mot de passe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-left: 20px;display: flex; align-items: center; justify-content: flex-end">
+                    <span (click)="logout()" ><i style="font-size: 35px; color: #225c9f; cursor: pointer" class="material-icons">power_settings_new</i></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>

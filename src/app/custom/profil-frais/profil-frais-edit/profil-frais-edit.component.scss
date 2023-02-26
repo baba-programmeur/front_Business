@@ -1,0 +1,53 @@
+@import '../../../../assets/sass/lbd/variables';
+
+.fermer {
+  margin-top: 2em;
+}
+
+.x_content {
+  form {
+    border: 1px solid #eee;
+    padding: 0.5em 0;
+    background: #F5F5F5;
+    .list-plage {
+      float: left;
+      width: 100%;
+      padding: 0 31px;
+      ul {
+        float: left;
+        width: 100%;
+        padding: 0;
+      }
+      .new_plage {
+        float: left;
+        width: 100%;
+        margin-bottom: 2em;
+        .item {
+          padding-left: 0;
+          input {
+            width: 100%;
+            border-radius: 3px;
+            border: none;
+            box-shadow: 0 0 3px 0 #aaa;
+            padding: 0.3em;
+          }
+          button {
+            background: $secondary-color;
+            color: white;
+            padding: 0.3em 0.5em;
+            height: 28px;
+            line-height: 20px;
+            i {
+              vertical-align: baseline;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+::ng-deep .mat-raised-button.valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}

@@ -1,0 +1,59 @@
+variables:
+    CLI_VERSION: 8.2.2
+
+image: trion/ng-cli:${CLI_VERSION}
+#image: trion/ng-cli
+
+cache:
+    paths:
+        - node_modules/
+
+stages:
+    - build
+    - deploy
+
+build:
+    stage: build
+    before_script:
+        - npm ci
+    #   - npm install -g node-sass --unsafe-perm=true --allow-root
+    #   - npm update
+    script:
+        # - ng build --configuration=production
+        - ng build --base-href ./
+    artifacts:
+        expire_in: 1 day
+        paths:
+            - dist/deploy_upay_angular
+    #tags:
+    #    - angular
+    only:
+        - test
+deploy-staging:
+    image: alpine
+    stage: deploy
+    environment:
+        name: staging
+    before_script:
+        - apk add --no-cache rsync
+        #- su apt-get install openssh
+        #- su apt-get install -qq git
+        # Setup SSH deploy keys
+        - 'which ssh-agent || ( apk add -qq openssh-client )'
+        - eval $(ssh-agent -s)
+        #- apk add --no-cache shadow
+        #
+        - chmod 600 id_rsa
+        - mkdir -p ~/.ssh
+        - ssh-add id_rsa
+        - ssh-keyscan -H '192.168.4.213' >> ~/.ssh/known_hosts
+        - ssh-keyscan 192.168.4.213 | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    script:
+        #- ssh -o StrictHostKeyChecking=no ses@172.30.4.213 "cd /var/www/html/deploy_upay_angular && git checkout develop  && git stash && git pull origin develop && npm install && npm run build:test &&  cp -r dist/* ../deploy_upay_angular && exit"
+        #- rsync -rav --delete dist/ ses@172.30.4.213:/var/www/html/gwebangular
+        - rsync -rav --delete dist/deploy_upay_angular ses@192.168.4.213:/var/www/html/deploy_upay_angular
+
+        #- ssh -o StrictHostKeyChecking=no ses@172.30.4.213 "cd /var/www/html/deploy_upay_angular && mv gwebadeploy_upay_angularngular/* ../ && exit"
+    only:
+        - test

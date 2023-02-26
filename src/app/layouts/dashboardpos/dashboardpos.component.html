@@ -1,0 +1,167 @@
+<div class="parent">
+<div class="totaux">
+    <div class="item">
+        <div>
+            <div class="mybody">
+                <div>
+                    <span class="nombre">100 000</span>
+                    <div style="display: flex;align-items: center;justify-content: space-between">
+                        <span class="titre">Ventes<br> d'aujourd'hui</span>
+                        <mat-icon class="icok" style="color:#7d7d7d">checklist_rtl</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="{'background':this.couleur2}">
+            <mat-icon>open_in_new</mat-icon>
+            <span style="font-weight: 600">VOIR DETAILS</span>
+        </div>
+    </div>
+    <div class="item">
+        <div>
+            <div class="mybody">
+                <div>
+                    <span class="nombre">300 000</span>
+                    <div style="display: flex;align-items: center;justify-content: space-between">
+                        <span class="titre">Ventes <br> de la semaine</span>
+                        <mat-icon class="icok" style="color:#7d7d7d">thumb_up_alt</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="{'background':this.couleur2}">
+            <mat-icon>open_in_new</mat-icon>
+            <span style="font-weight: 600">VOIR DETAILS</span>
+        </div>
+    </div>
+    <div class="item">
+        <div>
+            <div class="mybody">
+                <div>
+                    <span class="nombre">1 000 000</span>
+                    <div style="display: flex;align-items: center;justify-content: space-between">
+                        <span class="titre">Ventes <br> du mois</span>
+                        <mat-icon class="icok" style="color:#7d7d7d">done_outline</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="{'background':this.couleur2}">
+            <mat-icon>open_in_new</mat-icon>
+            <span style="font-weight: 600">VOIR DETAILS</span>
+        </div>
+    </div>
+    <div class="item">
+        <div>
+            <div class="mybody">
+                <div>
+                        <span class="nombre">20 000 000</span>
+                        <div style="display: flex;align-items: center;justify-content: space-between">
+                            <span class="titre">Ventes <br>de l'année</span>
+                            <mat-icon class="icok" style="color:#7d7d7d">calculate</mat-icon>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <div [ngStyle]="{'background':this.couleur2}">
+            <mat-icon>open_in_new</mat-icon>
+            <span style="font-weight: 600">VOIR DETAILS</span>
+        </div>
+    </div>
+</div>
+<div class="ligne2">
+    <div #blo1 style="overflow-y: hidden">
+        <div style="margin-bottom: 20px;padding: 5px 10px" [ngStyle]="{'border-bottom':'1px solid '+this.couleur2}">
+            <h4 style="margin: 0;font-weight: 500;color:#5d5d5d">Rapport Ventes - Dépenses - Versement Journalier</h4>
+        </div>
+        <ngx-charts-pie-chart
+                [view]="[ blo1.offsetWidth, 280]"
+                [scheme]="colorScheme"
+                [results]="single"
+                [gradient]="false"
+                [legend]="showLegend"
+
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+                (select)="onSelect($event)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)"
+        >
+        </ngx-charts-pie-chart>
+    </div>
+    <div #blo2>
+        <div style="margin-bottom: 20px;padding: 5px 10px" [ngStyle]="{'border-bottom':'1px solid '+this.couleur2}">
+            <h4 style="margin: 0;font-weight: 500;color:#5d5d5d">Diagramme des ventes de la semaine</h4>
+        </div>
+        <ngx-charts-bar-vertical
+                [view]="[ blo2.offsetWidth, 250]"
+                [scheme]="colorScheme"
+                [results]="single2"
+                [gradient]="false"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="showLegend"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+</div>
+<div class="ligne2">
+        <div>
+            <div style="padding: 5px 10px" [ngStyle]="{'border-bottom':'1px solid '+couleur2}">
+                <h4 style="margin: 0;font-weight: 500;color:#5d5d5d">Rapport des produits les mieux vendus</h4>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th [ngStyle]="{'background': '#f4f4f4'}" scope="col">Nom du produit</th>
+                    <th [ngStyle]="{'background': '#f4f4f4','text-align':'right'}" scope="col">Quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Fer à béton Local 6mm</td>
+                    <td><b>15 883</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton 10mm importer</td>
+                    <td><b>7 710</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton 12mm importer</td>
+                    <td><b>4 318</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton Local 10mm</td>
+                    <td><b>17 373</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton 10mm Indien</td>
+                    <td><b>6 454</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton Local 8mm</td>
+                    <td><b>7 767</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton Local 12mm</td>
+                    <td><b>6 835</b></td>
+                </tr>
+                <tr>
+                    <td>Fer à béton 12mm Indien</td>
+                    <td><b>2 721</b></td>
+                </tr>
+                  </tbody>
+            </table>
+        </div>
+        <div>
+            <div style="margin-bottom: 20px;padding: 5px 10px" [ngStyle]="{'border-bottom':'1px solid '+couleur2}">
+                <h4 style="color:#5d5d5d;margin: 0;font-weight: 500">Rapport Ventes - Dépenses - Versement Journalier</h4>
+            </div>
+        </div>
+    </div>
+</div>

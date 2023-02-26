@@ -1,0 +1,22 @@
+.loading_wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 8888888;
+    .loading {
+        z-index: 8888888;
+        width: 70px;
+        margin: 42vh auto auto auto;
+        img {
+            width: 100%;
+            z-index: 8888888;
+        }
+    }
+}
+
+body{
+    overflow: hidden;
+}

@@ -1,0 +1,219 @@
+<div class="formulaire-item dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h3><i class="fa fa-wpforms"></i> Gestion des champs</h3>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+          <div class="">
+            <div class="infos">
+              <ul>
+                <li class="slug"><span class="libelle">Slug</span> <span class="valeur">{{ formulaire?.slug }}</span></li>
+                <li class="description"><span class="libelle">Description</span> <span class="valeur">{{ formulaire?.description }}</span></li>
+              </ul>
+            </div>
+
+            <div class="col-md-8 col-sm-6 col-lg-8 col-xs-12 apercu">
+              <fieldset>
+                <legend>Aperçu du formulaire
+                  <ul>
+                    <li class="add_item">
+                      <a (click)="onAddItem()" title="Ajouter une ligne/colonne"><i class="fa fa-plus"></i></a>
+                    </li>
+                  </ul>
+                </legend>
+
+                <ul *ngIf="formDetails && formDetails.formulaireItems && formDetails.formulaireItems.length != 0">
+                  <li *ngFor="let formItem of formDetails.formulaireItems">
+                    <app-formulaire-item-view [formItem]="formItem"></app-formulaire-item-view>
+                  </li>
+                </ul>
+              </fieldset>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-lg-4 col-xs-12 edit" *ngIf="selected">
+              <fieldset class="champ" *ngIf="selectedType == 'champ'">
+                <legend>Paramètres du champ
+                  <ul>
+                    <li class="save">
+                      <a (click)="onSave(selected)" title="Enregister les modifications"><i class="fa fa-save"></i></a>
+                    </li>
+
+                    <li class="delete_champ">
+                      <a (click)="onDeleteChamp(selected)" title="Supprimer le champ"><i class="fa fa-trash"></i></a>
+                    </li>
+                  </ul>
+                </legend>
+                <form [formGroup]="formChamp">
+                  <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <input id="slug" class="form-control" value="{{ selected.slug }}" [(ngModel)]="selected.slug" formControlName="slug"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="label">Label</label>
+                    <input id="label" class="form-control" value="{{ selected.label }}" [(ngModel)]="selected.label" formControlName="label"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="placeholder">Placeholder</label>
+                    <input id="placeholder" class="form-control" value="{{ selected.placeholder }}" [(ngModel)]="selected.placeholder" formControlName="placeholder"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type" class="form-control" formControlName="type">
+                      <option value="text" [selected]="selected.type === 'text'">Text</option>
+                      <option value="number" [selected]="selected.type === 'number'">Number</option>
+                      <option value="email" [selected]="selected.type === 'email'">Email</option>
+                      <option value="select" [selected]="selected.type === 'select'">Select</option>
+                      <option value="date" [selected]="selected.type === 'select'">Date</option>
+                    </select>
+
+                    <div class="options-config" *ngIf="formChamp.value.type == 'select'">
+                      <button class="add" (click)="onNewOption()"><i class="fa fa-plus-circle"></i> Nouvelle option</button>
+
+                      <table class="table table-responsive table-striped">
+                        <thead>
+                          <tr><th>Label</th><th>Valeur</th><th style="text-align: center;">Actions</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let option of options">
+                            <td>{{ option.label }}</td>
+                            <td>{{ option.valeur }}</td>
+                            <td style="text-align: center"><a class="remove" (click)="onDeleteOption(option)"><i style="color: red" class="fa fa-times"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="dependsOnFieldTag">Slug dépend</label>
+                    <input id="dependsOnFieldTag" class="form-control" value="{{ selected.dependsOnFieldTag }}" [(ngModel)]="selected.dependsOnFieldTag" formControlName="dependsOnFieldTag"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="dependsOnFieldValue">Valeur dépend</label>
+                    <input id="dependsOnFieldValue" class="form-control" value="{{ selected.dependsOnFieldValue }}" [(ngModel)]="selected.dependsOnFieldValue" formControlName="dependsOnFieldValue"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="visible">Visible</label>
+                    <input id="visible" type="checkbox" [(ngModel)]="selected.visible" formControlName="visible">
+                  </div>
+                  <div class="form-group">
+                    <label for="readOnly">ReadOnly</label>
+                    <input id="readOnly" type="checkbox" [(ngModel)]="selected.readOnly" formControlName="readOnly">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="validation" for="required">Required
+                      <input id="required" type="checkbox" [(ngModel)]="requiredVisible" formControlName="required">
+                    </label>
+
+                    <label [hidden]="!requiredVisible" class="val_and_mess" for="required_message">message d'erreur
+                      <input type="text" id="required_message" class="message"
+                             formControlName="required_message"
+                             [value]="getValidationMessage('REQUIRED')">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="validation" for="minLength">Min length
+                      <input id="minLength" type="checkbox" [(ngModel)]="minLengthVisible" formControlName="minLength">
+                    </label>
+
+                    <label [hidden]="!minLengthVisible" class="val_and_mess" for="min_length_val"> Valeur
+                      <input type="text" id="min_length_val" class="valeur"
+                             formControlName="min_length_val"
+                             [value]="getValidationValue('MIN_LENGTH')">
+                    </label>
+
+                    <label [hidden]="!minLengthVisible" class="val_and_mess" for="min_length_message">message d'erreur
+                      <input type="text" id="min_length_message" class="message"
+                             formControlName="min_length_message"
+                             [value]="getValidationMessage('MIN_LENGTH')">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="validation" for="maxLength">Max length
+                      <input id="maxLength" type="checkbox" [(ngModel)]="maxLengthVisible" formControlName="maxLength">
+                    </label>
+
+
+
+                    <label [hidden]="!maxLengthVisible" class="val_and_mess" for="max_length_val"> Valeur
+                      <input type="text" id="max_length_val" class="valeur"
+                             formControlName="max_length_val"
+                             [value]="getValidationValue('MAX_LENGTH')">
+                    </label>
+
+                    <label [hidden]="!maxLengthVisible" class="val_and_mess" for="max_length_message">message d'erreur
+                      <input type="text" id="max_length_message" class="message"
+                             formControlName="max_length_message"
+                             [value]="getValidationMessage('MAX_LENGTH')">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="validation" for="regex">Regex
+                      <input id="regex" type="checkbox" [(ngModel)]="regexVisible" formControlName="regex">
+                    </label>
+
+                    <label [hidden]="!regexVisible" class="val_and_mess" for="regex_val"> Valeur
+                      <input type="text" id="regex_val" class="valeur"
+                             formControlName="regex_val"
+                             [value]="getValidationValue('REGEX')">
+                    </label>
+
+                    <label [hidden]="!regexVisible" class="val_and_mess" for="regex_message">message d'erreur
+                      <input type="text" id="regex_message" class="message"
+                             formControlName="regex_message"
+                             [value]="getValidationMessage('REGEX')">
+                    </label>
+                  </div>
+                </form>
+              </fieldset>
+
+              <fieldset class="item" *ngIf="selectedType == 'item'">
+                <legend>Paramètres
+                  <ul>
+                    <li class="save">
+                      <a (click)="onSave(selected)" title="Enregister les modifications"><i class="fa fa-save"></i></a>
+                    </li>
+
+                    <li class="delete_champ">
+                      <a (click)="onDeleteItem(selected)" title="Supprimer la ligne/colonne"><i class="fa fa-trash"></i></a>
+                    </li>
+                  </ul>
+                </legend>
+                <form [formGroup]="formItem">
+                  <div class="form-group">
+                    <label for="typeItem">Type</label>
+                    <select id="typeItem" class="form-control" [(ngModel)]="selected.type" formControlName="typeItem">
+                      <option value="LIGNE">Ligne</option>
+                      <option value="COLONNE">Colonne</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="niveau">Niveau</label>
+                    <input type="number" id="niveau" class="form-control" [(ngModel)]="selected.niveau" formControlName="niveau"/>
+                  </div>
+                </form>
+
+              </fieldset>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Mettre ici le bouton fermer -->
+        <div class="x_footer">
+          <div  class="fermer" style="text-align: right">
+            <button type="button" class="btn btn-default" (click)="closeDialog()">Fermer</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

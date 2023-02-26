@@ -1,0 +1,88 @@
+@import "../../../assets/sass/lbd/variables";
+
+
+.login_content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $color-black-transparent;
+  overflow: auto;
+  .background {
+    img {
+      float: left;
+      width: 50%;
+    }
+  }
+}
+.login {
+  form {
+    width: 450px;
+    background: white;
+    padding: 1em;
+    margin: 3em auto auto;
+    box-shadow: 0 0 8px 0 #666;
+    border-radius: 10px;
+    max-width: 90%;
+    h1 {
+      margin-bottom: 1em;
+      text-align: center;
+      font-size: 2.5rem;
+      .app {
+        display: block;
+        font-size: 4.5rem;
+        font-style: italic;
+        color: $secondary-color;
+        margin-bottom: 0.5em;
+      }
+    }
+    .login-form {
+      width: 320px;
+      margin: auto;
+      .champs {
+        margin-bottom: 1em;
+        line-height: 40px;
+        mat-checkbox {
+          ::ng-deep .mat-checkbox-label {
+            font-weight: 400;
+          }
+        }
+        &.submit {
+          .btn {
+            background: $secondary-color;
+            color: white;
+            border: none;
+          }
+          .reset_pass {
+            float: right;
+            color: $secondary-color;
+          }
+        }
+
+      }
+    }
+
+    .signup {
+      margin-top: 1em;
+      text-align: center;
+      a {
+        color: $primary-color;
+        text-decoration: underline;
+      }
+    }
+  }
+  .copyright {
+    a {
+      img {
+        width: 75%;
+        margin-left: 12.5%;
+      }
+    }
+    p {
+      font-size: 12px;
+      margin-top: 1em;
+      text-align: center;
+    }
+  }
+}

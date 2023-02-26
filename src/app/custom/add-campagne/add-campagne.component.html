@@ -1,0 +1,291 @@
+<style>
+    .champ {
+        width: 400px;
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .champ mat-form-field {
+        width: 100%;
+    }
+</style>
+
+<div class="add-campagne">
+    <div *ngIf="saving" class="campagne-loader-wrapper">
+        <div class="campagne-loader">
+            <div class="title"><h3></h3></div>
+            <p class="desc">Création en cours, merci de patienter ...</p>
+            <div class="slider">
+                <span [style.width]="p_savedDetail + '%'" class="done"></span>
+                <p class="percent">{{ p_savedDetail }}%</p>
+            </div>
+        </div>
+    </div>
+    <h1 mat-dialog-title><i class="fa fa-plus-circle"></i> Nouvelle campagne {{ typeCampagne | lowercase }}</h1>
+    <div mat-dialog-content style="max-height: 75vh; background: #F5F5F5">
+        <mat-horizontal-stepper #stepper [linear]="isLinear">
+            <!--****************  Etape 1 : Choisir le type de Campagne *************** -->
+            <mat-step>
+                <form>
+                    <ng-template matStepLabel>Type de Campagne</ng-template>
+                    <div class="type_campagne">
+                        <p class="info">Choisissez un type de campagne puis cliquez sur le bouton suivant.</p>
+                        <ul>
+                            <!--****************  Choix Campagne Individuelle *************** -->
+                            <li class="indiv" [ngClass]="{'indiv_selected': collectIndiv === 'indiv'}">
+                                <a  (click)="onSwitchTab('indiv', $event)">
+                                    <div class="image">
+                                        <img src="assets/img/profile.png" alt="">
+                                    </div>
+                                    <div class="libelle">
+                                        <label>Individuelle</label>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!--****************  Choix Campagne Collective *************** -->
+                            <li class="file" [ngClass]="{'file_selected': collectIndiv === 'file'}">
+                                <a  (click)="onSwitchTab('file', $event)">
+                                    <div class="image">
+                                        <img src="assets/img/upload.png" alt="">
+                                    </div>
+                                    <div class="libelle">
+                                        <label>Collective</label>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="desc" *ngIf="collectIndiv">
+                            <p>
+                                <i class="fa fa-info-circle"></i> Vous allez effectuer une campagne
+                                <span *ngIf="collectIndiv === 'indiv'">individuelle</span>
+                                <span *ngIf="collectIndiv === 'file'">collective</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                        <div class="bouton">
+                            <button [disabled]="!collectIndiv" [ngClass]="{'disabled': !collectIndiv}"
+                                    class="suivant" mat-button matStepperNext><i class="fa fa-arrow-right"></i> Suivant
+                            </button>
+                        </div>
+                </form>
+            </mat-step>
+            <!--**************** EndOf Etape 1 *************** -->
+
+            <!--****************  Etape 2 : Choisir le type de Campagne *************** -->
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Nom de la campagne</ng-template>
+                    <div class="canal" style="float: left; width: 100%">
+                        <div class="">
+                            <p class="info">Saisir le nom de la campagne <span
+                                    *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'">et le canal de réception</span>
+                                puis cliquer sur suivant.</p>
+
+                            <div class="form" style="width: 500px;
+                                                     max-width: 100%;
+                                                     margin: auto;
+                                                     border: 1px solid #eee;
+                                                     padding: 2em 2em 3em; margin-bottom: 2em">
+                                <div class="champ">
+                                    <mat-form-field>
+                                        <input [(ngModel)]="nomCampagne"
+                                               formControlName="nomCampagneCtrl"
+                                               matInput
+                                               placeholder="Nom de la campagne"
+                                               required
+                                        >
+                                    </mat-form-field>
+                                </div>
+
+                                <div *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'" class="champ">
+                                    <mat-form-field>
+                                        <mat-label>Type de canal</mat-label>
+                                        <select (change)="onSelectTypeCanal()" [(ngModel)]="typeCanalId"
+                                                formControlName="typeCanalCtrl"
+                                                matNativeControl
+                                                required>
+                                            <option *ngFor="let type of typeCanals"
+                                                    value="{{ type.id }}">{{ type.libelle }}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div *ngIf="typeCampagne && typeCampagne == 'DECAISSEMENT'" class="champ">
+                                    <mat-form-field>
+                                        <mat-label>Canal de réception</mat-label>
+                                        <select (change)="onSelectCanal()" [(ngModel)]="canalLibelle"
+                                                formControlName="canalCtrl"
+                                                matNativeControl
+                                                required
+                                        >
+                                            <option *ngFor="let canal of canals"
+                                                    value="{{ canal.libelle }}">{{ canal.libelle }}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="bouton">
+                            <button   class="retour" mat-button matStepperPrevious><i
+                                    class="fa fa-arrow-left"></i> Retour
+                            </button>
+                     <button type="submit"  [disabled]="!secondFormGroup.valid" (click)="getFrais()" [ngClass]="{'disabled':!secondFormGroup.valid}"
+                                    class="suivant" mat-button matStepperNext><i class="fa fa-arrow-right" ></i> Suivant
+                            </button>
+                                           
+                           <!-- <button [disabled]="!secondFormGroup.valid" class="suivant" (click)="getFrais()" [ngClass]="{'disabled':!secondFormGroup.valid}"><i class="fa fa-arrow-right"></i>Suivant</button>-->
+                        </div>
+
+                    </div>
+
+                </form>
+            </mat-step>
+            <!--****************  Etape 3 : Remplir formulaire et valider *************** -->
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup" id="thirdFormGroup">
+                    <ng-template matStepLabel>Chargement des données</ng-template>
+
+                    <div *ngIf="collectIndiv == 'indiv'" class="formulaire-paiement" style="padding: 2em 1em">
+                        <app-formulaire-data (onFormChange)="onFormChange($event)"
+                                             [formulaireSlug]="typeCampagne.toLowerCase()"
+                        ></app-formulaire-data>
+                    </div>
+
+                    <input *ngIf="thirdFormGroup.contains('fileCtrl') && collectIndiv == 'file'" [(ngModel)]="fileIsValid"
+                           formControlName="fileCtrl"
+                           hidden
+                           name="file"
+                           required>
+
+                    <div class="fichier" *ngIf="collectIndiv == 'file'">
+                        <!-- Avant Chargement Fichier-->
+                        <div *ngIf="!fileLoaded" class="loader-file">
+                            <p class="info">Charger le fichier des clients puis cliquer sur suivant. </p>
+
+                            <div (click)="fileInput.click()" (onFileDropped)="uploadFile($event)" appDragDrop
+                                 class="uploadfilecontainer">
+                                <input #fileInput (change)="onFileSelected($event.target?.files)" hidden
+                                       type="file">
+                            </div>
+                            <div *ngIf="selectedFile" class="files-list">
+                                <p> {{ selectedFile?.name }} </p>
+                                <button (click)="deleteAttachment($event)" class="delete-file">
+                                    <img src="assets/img/delete.png">
+                                </button>
+                            </div>
+                            <p class="info">
+                                <button (click)="downloadFile()" color="primary" mat-raised-button>Télécharger
+                                    le modèle de fichier <i class="fa fa-download"></i></button>
+                            </p>
+
+                        </div>
+                        <!-- Apres Chargement Fichier-->
+                        <div *ngIf="fileLoaded" class="preview">
+                            <p class="info">Aperçu du fichier.</p>
+                            <div class="agregats">
+                                <ul>
+                                    <li class="nb_clients">
+                                        <span class="libelle">Client </span> -
+                                        <span class="valeur"><i class="fa fa-user"></i> {{ nbClients }} </span>
+                                    </li>
+
+                                    <li class="montant">
+                                        <span class="libelle">Montant </span> -
+                                        <span class="valeur"><i class="fa fa-money"></i> {{ montantTotal }} CFA</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <app-details-campagne-apercu [details]="detailsCampagne" [entete]="entete"
+                                                         [typeCampagne]="typeCampagne"></app-details-campagne-apercu>
+                        </div>
+                    </div>
+
+                    <div class="bouton">
+                        <button class="retour" mat-button matStepperPrevious><i class="fa fa-arrow-left"></i> Retour
+                        </button>
+                        <button (click)="onDataSaved()" [disabled]="!thirdFormGroup.valid"
+                                [ngClass]="{'disabled': !thirdFormGroup.valid}" class="suivant" mat-button matStepperNext><i
+                                class="fa fa-arrow-right"></i> Suivant
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <form>
+                    <ng-template matStepLabel>Validation</ng-template>
+
+                    <div class="validation">
+                        <p class="info">Résumé de la campagne : cliquer sur terminer pour valider.</p>
+
+                        <div class="image">
+                            <img *ngIf="typeCampagne === 'ENCAISSEMENT'" alt="" src="assets/img/icone_collecte.png">
+                            <img *ngIf="typeCampagne === 'DECAISSEMENT'" alt=""
+                                 src="assets/img/icone_paiement_masse.png">
+
+                            <div class="type-campagne">
+                                <h2 *ngIf="typeCampagne === 'DECAISSEMENT'" class="valeur">Paiement de masse</h2>
+                                <h2 *ngIf="typeCampagne === 'ENCAISSEMENT'" class="valeur">Collecte de fonds</h2>
+                            </div>
+                        </div>
+
+                        <div class="recap">
+                            <ul>
+                                <li class="nom-campagne">
+                                    <span class="libelle"><i class="fa fa-bell"></i> Nom campagne</span>
+                                    <span class="valeur">{{ nomCampagne }}</span>
+                                </li>
+                                <li class="nb-clients">
+                                    <span class="libelle"><i class="fa fa-users"></i> Nombre de clients</span>
+                                    <span class="valeur">{{ nbClients }}</span>
+                                </li>
+                                <li *ngIf="typeCampagne=='DECAISSEMENT'" class="frais">
+                                    <span class="libelle"><i class="fa fa-credit-card"></i> Frais</span>
+                                    <span class="valeur">{{ frais | number }}</span>
+                                </li>
+                                <li class="mnt-total">
+                                    <span class="libelle"><i class="fa fa-money"></i> Montant campagne</span>
+                                    <span class="valeur">{{ montantTotal }}</span>
+                                </li>
+                                <li class="nb-sms">
+                                    <span class="libelle"><i class="fa fa-comment"></i> Nombre SMS</span>
+                                    <span class="valeur">{{ nbSMS }} / {{ nbClients }}</span>
+                                </li>
+                                <li class="nb-email">
+                                    <span class="libelle"><i class="fa fa-envelope"></i> Nombre EMAILs</span>
+                                    <span class="valeur">{{ nbEmail }} / {{ nbClients }}</span>
+                                </li>
+                                <li *ngIf="typeCampagne === 'DECAISSEMENT'" class="mnt-total">
+                                    <span class="libelle"><i class="fa fa-send-o"></i> Type de canal</span>
+                                    <span class="valeur">{{ typeCanalLibelle }}</span>
+                                </li>
+                                <li *ngIf="typeCampagne === 'DECAISSEMENT'" class="mnt-total">
+                                    <span class="libelle"><i class="fa fa-send"></i> Canal de réception</span>
+                                    <span class="valeur">{{ canalLibelle }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bouton">
+                        <button class="retour" mat-button matStepperPrevious><i class="fa fa-arrow-left"></i> Retour
+                        </button>
+                        <button (click)="terminer()" class="suivant" mat-button>Terminer</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-horizontal-stepper>
+
+    </div>
+    <!--<div mat-dialog-actions>-->
+    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+    <!--<button mat-button [mat-dialog-close]="'test'" cdkFocusInitial>Ok</button>-->
+    <!--</div>-->
+</div>

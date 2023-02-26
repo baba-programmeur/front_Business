@@ -1,0 +1,111 @@
+<div class="canal-endpoints dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+          <div class="x_title">
+            <h2>Gestion endpoints pour <strong>{{ canal.libelle }}</strong>
+              <a *ngIf="!add" class="add pull-right"><i class="fa fa-plus-circle" (click)="onAdd()"></i></a>
+              <a *ngIf="add" class="cancel pull-right"><i class="fa fa-times-circle" (click)="onCancelAdd()"></i></a>
+            </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <form [formGroup]="formGroup" class="form-horizontal">
+              <div class="form-group">
+                <label for="libelle">Libelle de la requête
+                  <select *ngIf="add" class="form-control" type="text" id="libelle" formControlName="libelle">
+                    <option value="validation">validation</option>
+                    <!--<option value="releve">relevé</option>-->
+                  </select>
+                  <select *ngIf="!add" class="form-control" id="libelle" formControlName="libelle" (ngModelChange)="onSelectEndpoint($event)" [(ngModel)]="selectedEndPoint.libelle">
+                    <option *ngFor="let endpoint of endpoints" value="{{ endpoint.libelle }}">{{ endpoint.libelle }}</option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="url">URL
+                  <input type="text" class="form-control" id="url" formControlName="url" [(ngModel)]="selectedEndPoint.url">
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="method">Method
+                  <select class="form-control" id="method" formControlName="method" [(ngModel)]="selectedEndPoint.method">
+                    <option value=""></option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="urlToken">URL DE CONNEXION
+                  <input type="text" class="form-control" id="urlToken" formControlName="urlToken" [(ngModel)]="selectedEndPoint.urlToken">
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="username">USERNAME
+                  <input type="text" class="form-control" id="username" formControlName="username" [(ngModel)]="selectedEndPoint.username">
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="password">PASSWORD
+                  <input type="text" class="form-control" id="password" formControlName="password" [(ngModel)]="selectedEndPoint.password">
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="headers">Headers <span>(ex: {{"{"}}Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", Content-Type: "application/json"{{"}"}})</span>
+                  <textarea class="form-control" id="headers" cols="30" rows="10" formControlName="headers" [(ngModel)]="selectedEndPoint.headers"></textarea>
+                </label>
+<!--                <json-editor [options]="editorOptions" [data]="headers" (change)="getHeaders($event)"></json-editor>-->
+              </div>
+
+              <div class="form-group">
+                <label for="body">Body
+                  <textarea class="form-control" id="body" cols="30" rows="10" formControlName="body" [(ngModel)]="selectedEndPoint.body"></textarea>
+                </label>
+<!--                <json-editor [options]="editorOptions" [data]="body"  (change)="getBody($event)"></json-editor>-->
+                </div>
+
+              <div class="form-group">
+                <label for="response">Response
+                  <textarea class="form-control" id="response" cols="30" rows="10" formControlName="response" [(ngModel)]="selectedEndPoint.reponse"></textarea>
+                </label>
+<!--                <json-editor [options]="editorOptions" [data]="response"  (change)="getResponse($event)"></json-editor>-->
+              </div>
+
+              <div style="float: left;width: 100%;margin-top: 2em;">
+                <div class="col-md-4 col-lg-4 form-group" style="padding-left: 0">
+                  <label for="codeKey">Clé code retour
+                    <input type="text" class="form-control" id="codeKey" formControlName="codeKey" [(ngModel)]="selectedEndPoint.codeKey">
+                  </label>
+                </div>
+                <div class="col-md-4 col-lg-4 form-group" style="padding: 0">
+                  <label for="messageKey">Clé message retour
+                    <input type="text" class="form-control" id="messageKey" formControlName="messageKey" [(ngModel)]="selectedEndPoint.messageKey">
+                  </label>
+                </div>
+                <div class="col-md-4 col-lg-4 form-group" style="padding-right: 0">
+                  <label for="successCode">Code succés
+                    <input type="text" class="form-control" id="successCode" formControlName="successCode" [(ngModel)]="selectedEndPoint.successCode">
+                  </label>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+          <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+            <button mat-raised-button class="" (click)="onCancel()" style="margin-right: 0.5em">Annuler</button>
+            <button style="background: red; color: white; margin-left: 1em" *ngIf="!add" mat-raised-button type="submit" (click)="onDelete(selectedEndPoint)">Supprimer</button>
+            <button mat-raised-button type="submit" class="valide" [disabled]="!formGroup.valid" (click)="onSubmit()">Valider</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

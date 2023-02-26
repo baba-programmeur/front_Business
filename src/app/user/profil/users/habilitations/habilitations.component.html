@@ -1,0 +1,13 @@
+<div class="m-habilitations">
+  <h3><i class="fa fa-list"></i> Liste des habilitations</h3>
+  <ul class="row group">
+    <li *ngFor="let habilitation of habilitations" class="title">
+      <h4>{{ habilitation.libelle }}</h4>
+      <ul *ngIf="habilitation.habilitations && habilitation.habilitations.length != 0">
+        <li *ngFor="let scope of habilitation.habilitations" class="item">
+          <i class="fa fa-check"></i> {{ scope.description }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

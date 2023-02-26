@@ -1,0 +1,16 @@
+@import "../../../assets/sass/lbd/variables";
+
+
+.admin {
+  min-height: calc(100vh - 130px);
+  float: left;
+  width: 100%;
+  padding-bottom: 1em;
+
+  div.content {
+    min-height: calc(100vh - 130px);
+    float: left;
+    width: 100%;
+    padding: 0.5em 2em;
+  }
+}

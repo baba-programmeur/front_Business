@@ -1,0 +1,223 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row analytiques">
+      <div class="card filtre">
+        <h4 class="title">Filtre</h4>
+        <form>
+          <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+              <div class="form-group col-md-12">
+                <mat-form-field>
+                  <mat-label>Période</mat-label>
+                  <mat-select [formControl]="periodeControl" (selectionChange)="onSelectPeriode($event)">
+                    <mat-option value="today">Aujourd'hui</mat-option>
+                    <mat-option value="yesterday">Hier</mat-option>
+                    <mat-option value="thisWeek">Cette semaine</mat-option>
+                    <mat-option value="previousWeek">Semaine précédente</mat-option>
+                    <mat-option value="thisMonth" selected>Ce mois</mat-option>
+                    <mat-option value="previousMonth">Mois précédent</mat-option>
+                    <mat-option value="thisYear">Cette année</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+              <div class="form-group col-md-12">
+                <mat-form-field>
+                  <mat-label>Type</mat-label>
+                  <mat-select [formControl]="typeControl" (selectionChange)="onSelectType($event)">
+                    <mat-option value="">Tous</mat-option>
+                    <mat-option value="ENCAISSEMENT">Collecte de fonds</mat-option>
+                    <mat-option value="DECAISSEMENT">Paiement de masse</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+              <div class="form-group col-md-12">
+                <mat-form-field>
+                  <mat-label>Statut</mat-label>
+                  <mat-select [formControl]="statutControl" (selectionChange)="onSelectStatut($event)">
+                    <mat-option value="">Tous</mat-option>
+                    <mat-option value="INITIE">Initiée</mat-option>
+                    <mat-option value="PARTIEL">Partielle</mat-option>
+                    <mat-option value="SOLDE">Soldée</mat-option>
+                    <mat-option value="ECHOUE">Echouée</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+<!--            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">-->
+<!--              <div class="form-group col-md-12">-->
+<!--                <mat-form-field class="">-->
+<!--                  <input type="text" placeholder="Nom campagne" aria-label="Number" matInput [formControl]="campagneControl" [matAutocomplete]="auto">-->
+<!--                  <mat-autocomplete class="campagne-select" #auto="matAutocomplete" (optionSelected)="onSelectCampagne($event.option.id)">-->
+<!--                    <mat-option *ngFor="let campagne of filteredCampagnes | async"-->
+<!--                                [value]="campagne.nom"-->
+<!--                                [id]="campagne"-->
+<!--                                style="border: 1px solid #eee;">-->
+<!--                                                  <span style="font-size: 12px;-->
+<!--                                                                margin-right: 1em;-->
+<!--                                                                color: white;-->
+<!--                                                                padding: 0.2em 0.4em;-->
+<!--                                                                border-radius: 3px;-->
+<!--                                                                text-transform: lowercase;-->
+<!--                                                                background: #b4aaaa;-->
+<!--                                                                vertical-align: middle;-->
+<!--                                                                line-height: 15px;-->
+<!--                                                                min-width: 43px;-->
+<!--                                                                text-align: center;-->
+<!--                                                                display: inline-block;"-->
+<!--                                                        class="statut {{ campagne.status | lowercase}}">{{ campagne.status }}</span>{{ campagne.nom }}-->
+<!--                    </mat-option>-->
+<!--                  </mat-autocomplete>-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+<!--            </div>-->
+          </div>
+        </form>
+      </div>
+
+      <div class="agregats card">
+        <h4 class="title">Agrégats</h4>
+
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Initié</label>
+                <span class="icone initie"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ nbInitie }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Partiel</label>
+                <span class="icone partiel"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ nbPartiel }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Terminé</label>
+                <span class="icone valide"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ nbValide }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Echoué</label>
+                <span class="icone echec"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ nbEchoue }} </span>
+
+              </div>
+            </div>
+          </div>
+
+
+        <div class="row items">
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Total</label>
+                <span class="icone total"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ total }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="inner">
+              <div class="label">
+                <label class="title">Montant payé</label>
+                <span class="icone total"></span>
+              </div>
+              <div class="value">
+                <span class="number">{{ montantPaye }} / {{ montantTotal }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card graphes">
+        <h4 class="title">Graphes</h4>
+
+        <div class="statuts">
+          <google-chart
+            style="margin: auto"
+            id="chart"
+            [title]="'Statut des 10 dernières campagnes'"
+            [type]="'ColumnChart'"
+            [data]="campagneStatutArray"
+            [width]="chartCampagneStatutWidth"
+            [height]="500"
+            [dynamicResize]="true"
+            [columnNames]="['Statut', 'Initie', 'Partiel', 'Valide', 'Echec']"
+            [options]="{colors: ['#4680ff', '#FFB64D', '#93BE52', '#ff0000'], is3D: true}">
+          </google-chart>
+        </div>
+
+        <hr>
+
+        <div class="row pie-charts">
+          <div class="pie-chart nombre col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <google-chart
+                    style="margin: auto"
+                    [title]="'Statut des paiements (nombre)'"
+                    [type]="'PieChart'"
+                    [width]="500"
+                    [height]="500"
+                    [data]="[
+                              ['Initie', initiePercent],
+                              ['Partiel', partielPercent],
+                              ['Terminé', validePercent],
+                              ['Echec', echecPercent]
+                          ]"
+                    [columnNames]="['Statut', 'Percentage']"
+                    [options]="{colors: ['#4680ff', '#FFB64D', '#93BE52', '#ff0000'], is3D: true}">
+            </google-chart>
+          </div>
+
+          <div class="pie-chart montant col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <google-chart
+                    style="margin: auto"
+                    [title]="'Statut des paiements (montant)'"
+                    [type]="'PieChart'"
+                    [width]="500"
+                    [height]="500"
+                    [data]="[
+                        ['Initie', initieMontantPercent],
+                        ['Partiel', partielMontantPercent],
+                        ['Terminé', valideMontantPercent],
+                        ['Echec', echecMontantPercent]
+                    ]"
+                    [columnNames]="['Statut', 'Percentage']"
+                    [options]="{colors: ['#4680ff', '#FFB64D', '#93BE52', '#ff0000'], is3D: true}">
+            </google-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

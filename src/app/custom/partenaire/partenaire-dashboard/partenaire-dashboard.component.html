@@ -1,0 +1,278 @@
+<style>
+    .statut.solde {
+        background: #93BE52 !important;
+    }
+
+    .statut.expire {
+        background: #FFB64D !important;
+    }
+
+    .statut.partiel {
+        background: #FFB64D !important;
+    }
+
+    .statut.erreur {
+        background: red !important;
+    }
+
+    .statut.rejete {
+        background: red !important;
+    }
+
+    .statut.error {
+        background: red !important;
+    }
+
+    .statut.envoye {
+        background: #4680ff !important;
+    }
+
+    .statut.initie {
+        background: #4680ff !important;
+    }
+
+    .campagne-select {
+        position: absolute;
+        width: auto;
+    }
+</style>
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row campagnes">
+
+            <div class="col-md-12" style="padding: 0">
+                <div class="card" style="margin-bottom: 1em;">
+                    <div class="header">
+                        <h4 class="title">Campagnes
+                            <div class="pull-right">
+                            </div>
+                        </h4>
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Période</mat-label>
+                                            <mat-select (selectionChange)="onSelectPeriode($event)"
+                                                        [formControl]="periodeControl">
+                                                <mat-option value="">Tous</mat-option>
+                                                <mat-option value="today">Aujourd'hui</mat-option>
+                                                <mat-option value="yesterday">Hier</mat-option>
+                                                <mat-option value="thisWeek">Cette semaine</mat-option>
+                                                <mat-option value="previousWeek">Semaine précédente</mat-option>
+                                                <mat-option selected value="thisMonth">Ce mois</mat-option>
+                                                <mat-option value="previousMonth">Mois précédent</mat-option>
+                                                <mat-option value="thisYear">Cette année</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Type</mat-label>
+                                            <mat-select (selectionChange)="onSelectType($event)"
+                                                        [formControl]="typeControl">
+                                                <mat-option value="">Tous</mat-option>
+                                                <mat-option value="ENCAISSEMENT">Collecte de fonds</mat-option>
+                                                <mat-option value="DECAISSEMENT">Paiement de masse</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Statut</mat-label>
+                                            <mat-select (selectionChange)="onSelectStatut($event)"
+                                                        [formControl]="statutControl">
+                                                <mat-option value="">Tous</mat-option>
+                                                <!--<mat-option value="INITIE">Initiée</mat-option>-->
+                                                <mat-option value="PARTIEL">Partielle</mat-option>
+                                                <mat-option value="SOLDE">Soldée</mat-option>
+                                                <mat-option value="ERROR">Echouée</mat-option>
+                                                <mat-option value="ENVOYE">Envoyée</mat-option>
+                                                <mat-option value="EXPIRE">Expirée</mat-option>
+                                                <mat-option value="REJETE">Rejetée</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Liste des campagnes</mat-label>
+                                            <mat-select (selectionChange)="onSelectCampagne($event.value)"
+                                                        [formControl]="statutControl" [(value)]="selectedCampagne">
+                                                <input class="form-control" placeholder="Rechercher ici" (keyup)="onKey($event.target.value)">
+                                                <mat-option *ngFor="let campagne of filteredCampagnes" [value]="campagne">{{ campagne.nom }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!--                    <div class="content">-->
+
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row details-campagne">
+            <div class="col-md-12" style="padding: 0">
+                <div class="card">
+
+                    <div *ngIf="!detailsCampagne || detailsCampagne?.length == 0" class="content">
+                        <p style="text-align: center;padding: 2em 0;"><i class="fa fa-info-circle"></i> Aucune campagne
+                            selectionnée !</p>
+                    </div>
+
+                    <div *ngIf="detailsCampagne && detailsCampagne.length != 0" class="content">
+                        <div class="header">
+                            <h4 class="title">
+                                <span *ngIf="selectedCampagne" class="type" style="font-size: 2rem;font-weight: 500;"
+                                      title="type de la campagne">
+                                  <ng-container *ngIf="selectedCampagne.type.toUpperCase() == 'ENCAISSEMENT'">Collecte de fonds</ng-container>
+                                  <ng-container *ngIf="selectedCampagne.type.toUpperCase() == 'DECAISSEMENT'">Paiement de masse</ng-container>
+                                  |
+                                </span>
+                                <span class="date">{{ selectedCampagne?.date }}</span>
+                                <span *ngIf="selectedCampagne" class="cmp" title="Nom de la campagne"><i
+                                        class="fa fa-bullhorn"></i> {{ selectedCampagne?.nom }}</span>
+                                <span class="campagne-statut statut {{ selectedCampagne?.status | lowercase}}"
+                                      style="font-size: 12px;
+                                                                  margin-right: 1em;
+                                                                  color: white;
+                                                                  padding: 0.2em 0.4em;
+                                                                  border-radius: 3px;
+                                                                  text-transform: lowercase;
+                                                                  background: #b4aaaa;
+                                                                  vertical-align: middle;
+                                                                  line-height: 15px;
+                                                                  min-width: 43px;
+                                                                  text-align: center;
+                                                                  display: inline-block;">{{ selectedCampagne?.status }}</span>
+                            </h4>
+                            <div class="agregats row">
+
+                                <div class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner">
+                                        <div class="label">
+                                            <label class="title">Montant payé <span *ngIf="selectedCampagne.type == 'DECAISSEMENT'">(hors frais)</span></label>
+                                            <span class="icone total"></span>
+                                        </div>
+                                        <div class="value">
+                                            <span class="number">{{ montantPaye | number }} / {{ montantTotal | number }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner">
+                                        <div class="label" title="Nombre de paiements initiés">
+                                            <label class="title">Envoyé</label>
+                                            <span class="icone initie"></span>
+                                        </div>
+                                        <div class="value">
+                                            <span class="number">{{ nbEnvoye }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner">
+                                        <div class="label" title="Nombre d'erreurs sur les paiements">
+                                            <label class="title">Echoué</label>
+                                            <span class="icone echec"></span>
+                                        </div>
+                                        <div class="value">
+                                            <span class="number">{{ nbEchoue }}  <span *ngIf="nbBloque != 0"
+                                                                                       class="lock">(bloqué: <em
+                                                    class="" style="color: red">{{ nbBloque }}</em>)</span></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner">
+                                        <div class="label">
+                                            <label class="title" title="Nombre de client aux quels le code est envoyé">Expiré</label>
+                                            <span class="icone partiel"></span>
+                                        </div>
+                                        <div class="value">
+                                            <span class="number">{{ nbExpire }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner">
+                                        <div class="label">
+                                            <label class="title"
+                                                   title="Nombre de clients dont le code est payé">Payé</label>
+                                            <span class="icone valide"></span>
+                                        </div>
+                                        <div class="value">
+                                            <span class="number">{{ nbValide }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <span class="text-center type" style="font-size: 2rem;font-weight: 400;">Total : {{ total}} <span style="font-size: 1.5rem">transaction(s)</span></span>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <div class="details row">
+                                <app-details-campagne [campagne]="selectedCampagne" [details]="detailsCampagne" [totalItems]="total"
+                                                      [typeCampagne]="selectedCampagne.type"></app-details-campagne>
+                            </div>
+
+                            <div class="pourcentage" style="display: flex; align-items: center; justify-content: space-between">
+                                <google-chart
+                                        [columnNames]="['Statut', 'Percentage']"
+                                        [data]="[
+                                  ['Envoyé', envoyePercent],
+                                  ['Echoué', echecPercent],
+                                  ['Expiré', expirePercent],
+                                  ['Payé', validePercent]
+                              ]"
+                                        [options]="{colors: ['#4680ff', '#ff0000', '#FFB64D', '#93BE52'], is3D: true}"
+                                        [title]="'Statut des paiements (nombre)'"
+                                        [type]="'PieChart'"
+                                        style="margin: auto">
+                                </google-chart>
+
+                                <google-chart
+                                        [columnNames]="['Statut', 'Pourcentage']"
+                                        [data]="[
+                                            ['Envoyé', envoyeMontantPercent],
+                                            ['Echoué', echecMontantPercent],
+                                            ['Expiré', expireMontantPercent],
+                                            ['Payé', valideMontantPercent]
+                                        ]"
+                                        [dynamicResize]="true"
+                                        [options]="{colors: ['#4680ff', '#ff0000', '#FFB64D', '#93BE52'], pieHole: 0.4}"
+                                        [title]="'Statut des paiements (montant)'"
+                                        [type]="'PieChart'"
+                                        style="margin: auto">
+                                </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

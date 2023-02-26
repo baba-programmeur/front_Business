@@ -1,0 +1,70 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.foot{
+  display: flex;
+  align-items: center;
+}
+
+h3{
+  margin-top: 0px;
+}
+
+.link {
+  color: red;
+  font-size: 14px;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.mails {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+p{
+  color: #626262;
+  text-align: justify;
+}
+
+.maincontent{
+  display: flex;
+  flex-wrap: wrap;
+  width:100%;
+}
+
+.btn {
+  background: green;
+  color: white;
+}
+
+.grid{
+  width: 47.7%;
+  padding: 0.3%;
+  margin: 5px;
+
+}
+
+.item{
+  background: #fff;
+  padding: 3%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  justify-content: center;
+
+  p {
+    font-size: 12px;
+  }
+}
+
+@media all and (max-width: 780px) {
+  .grid{
+    width: 100%;
+    border: none;
+  }
+  .maincontent{
+    display: block;
+  }
+}

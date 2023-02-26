@@ -1,0 +1,57 @@
+<div class="profil_detail">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h3><i class="fa fa-user"></i> Mon profil</h3>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+            <div class="profile_img">
+              <div id="crop-avatar" style="height: 250px;">
+                <a (click)="openDialog()">
+                  <img style="margin: auto; height: 100%"
+                       src="{{ imageUrl }}"
+                       appDefault="assets/img/user.png"
+                       class="img-responsive avatar-view"
+                       alt="Avatar" title="Modifier l'image">
+                </a>
+              </div>
+            </div>
+
+            <h3>{{ user?.login }}</h3>
+            <ul class="list-unstyled user_data">
+              <li><i class="fa fa-envelope user-profile-icon"></i> {{ user?.email }}</li>
+            </ul>
+
+          </div>
+
+          <div class="col-md-6 col-sm-9 col-xs-12 details">
+            <div class="" style="margin-bottom: 4em;">
+              <ul class="to_do">
+                <li>
+                  <p><strong>Prénom</strong> <span class="pull-right">{{ user?.firstName }}</span></p>
+                </li>
+                <li>
+                  <p><strong>Nom</strong> <span class="pull-right">{{ user?.lastName }}</span></p>
+                </li>
+                <li>
+                  <p><strong>Adresse mail</strong> <span class="pull-right">{{ user?.email }}</span></p>
+                </li>
+                <li>
+                  <p><strong>Date création</strong> <span class="pull-right">{{ user?.createdDate }}</span></p>
+                </li>
+              </ul>
+            </div>
+
+
+            <button (click)="onUpdate()" mat-raised-button class="pull-right">
+              <i class="fa fa-edit m-right-xs"></i> Modifier le profil
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+@import "../../../assets/sass/lbd/variables";
+
+.image_uploader {
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .bouton {
+  }
+  .apercu {
+    background: #f5F5F5;
+    //margin-top: 3.3em;
+  }
+  .profile_img {
+    margin-top: 2em;
+    #crop-avatar {
+      img {
+        margin: auto;
+        border: 1px solid #eee;
+        padding: 0.5em;
+        width: 150px;
+        height: auto;
+        max-height: 150px;
+      }
+    }
+    #crop-avatar2 {
+      img {
+        margin: auto;
+        border: 1px solid #eee;
+        padding: 0.5em;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+}
+
+::ng-deep .mat-raised-button.valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}

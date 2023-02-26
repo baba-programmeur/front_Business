@@ -1,0 +1,128 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row campagnes">
+
+            <div class="col-md-12" style="padding: 0">
+                <div class="card" style="margin-bottom: 1em;">
+                    <div class="header">
+                        <h4 class="title">Logs
+                            <div class="pull-right">
+                            </div>
+                        </h4>
+                        <form [formGroup]="searchForm">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Date début</mat-label>
+                                            <input readonly matInput placeholder="Date début" [matDatepicker]="picker_dd" formControlName="dateDebut">
+                                            <mat-datepicker-toggle matSuffix [for]="picker_dd"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker_dd></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Date Fin</mat-label>
+                                            <input readonly matInput placeholder="Date fin" [matDatepicker]="picker_df" formControlName="dateFin">
+                                            <mat-datepicker-toggle matSuffix [for]="picker_df"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker_df></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Profil</mat-label>
+                                            <mat-select formControlName="profil">
+                                                <mat-option value=""></mat-option>
+                                                <mat-option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Login</mat-label>
+                                            <input matInput placeholder="login" formControlName="login">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12" *ngIf="isRoleSuperAdmin()">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Entite</mat-label>
+                                            <mat-select formControlName="entite" (selectionChange)="getFilialeByEntite($event.value)">
+                                                <mat-option value=""></mat-option>
+                                                <mat-option *ngFor="let entite of entites" [value]="entite">{{ entite.nom }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12" *ngIf="isRoleAdmin()">
+                                    <div class="form-group col-md-12">
+                                        <mat-form-field>
+                                            <mat-label>Filiale</mat-label>
+                                            <mat-select formControlName="filiale">
+                                                <mat-option value=""></mat-option>
+                                                <mat-option *ngFor="let filiale of filiales" [value]="getLibelleById(filiale.paysId)">{{ getLibelleById(filiale.paysId) }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group col-md-12">
+                                        <button mat-raised-button class="btn-primary" [disabled]="!searchForm.valid" (click)="onSearch()">Rechercher</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row details-campagne">
+            <div class="col-md-12" style="padding: 0">
+                <div class="card">
+
+                    <div *ngIf="!logs || logs?.length == 0" class="content">
+                        <p style="text-align: center;padding: 2em 0;"><i class="fa fa-info-circle"></i> Aucun log disponible !</p>
+                    </div>
+
+                    <div *ngIf="logs && logs.length != 0" class="content">
+                        <app-log-show [logs]="logs"></app-log-show>
+                        <!--<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Entite</th>
+                                    <th>Filiale</th>
+                                    <th>Username</th>
+                                    <th>Profil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let log of logs">
+                                    <td>{{ log.descriptionAction }}</td>
+                                    <td>{{ toDateStamp(log.dateAction) }}</td>
+                                    <td>{{ log.entite }}</td>
+                                    <td>{{ log.filiale }}</td>
+                                    <td>{{ log.login }}</td>
+                                    <td>{{ log.profil }}</td>
+                                </tr>
+                            </tbody>
+                        </table>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

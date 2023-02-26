@@ -1,0 +1,70 @@
+variables:
+  CLI_VERSION: 8.2.2
+
+#image: trion/ng-cli:${CLI_VERSION}
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - test
+  - deploy
+
+#build stage
+build:
+  stage: build
+  before_script:
+    - npm ci
+    - npm install node-sass
+  script:
+    - ng build --prod --base-href ./
+  artifacts:
+    expire_in: 1 day
+    paths:
+    - dist/
+  tags:
+    - angular
+
+test:
+  stage: test
+  script:
+  - npm install -g sonarqube-scanner
+  - >
+    sonar-scanner
+    -Dsonar.host.url=http://172.30.4.63:9000 
+    -Dsonar.login=7babe739d79cb5688a10db2d0b8794711105f66c
+    -Dsonar.typescript.lcov.reportPaths=coverage/lcov/lcov.info
+    -Dsonar.sourceEncoding=UTF-8
+    -Dsonar.sources=src/app
+    -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts
+    -Dsonar.tests=src/app
+    -Dsonar.test.inclusions=**/*.spec.ts
+
+deploy-staging:
+  stage: deploy
+  environment:
+    name: staging
+    url: http://172.30.4.63/api
+  dependencies:
+    - test
+  before_script:
+    - apk add openssh
+    - apk add -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apk add -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - apk add --no-cache shadow
+    - chmod 600 id_rsa
+    - mkdir -p ~/.ssh
+    - ssh-add id_rsa
+    - ssh-keyscan -H '172.30.4.63' >> ~/.ssh/known_hosts
+    - ssh-keyscan -H '172.30.4.213' >> ~/.ssh/known_hosts
+    - ssh-keyscan 172.30.4.63 | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh -o StrictHostKeyChecking=no selle@172.30.4.63 "cd /var/www/html/upayangular && git checkout develop && git pull origin develop && exit"
+    #- ssh -o StrictHostKeyChecking=no ses@172.30.4.213 "cd /var/www/html/upayangular && git checkout develop && git pull origin develop && exit"
+  #only:
+    #  - master

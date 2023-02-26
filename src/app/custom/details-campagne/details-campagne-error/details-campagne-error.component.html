@@ -1,0 +1,47 @@
+<div class="show-detail dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Erreur</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br>
+          <ul style="text-decoration: none">
+            <li>
+              <span class="text-center" style="color: red; ">Erreur : {{ message }}</span>
+            </li>
+            <li>
+              <span class="text-center">Champ : {{ message }}</span>
+            </li>
+          </ul>
+          <br>
+          <table #dataTable class="table table-responsive table-striped display" style="margin-top: 5px;">
+            <thead>
+              <th>ID</th>
+              <th>PRENOM</th>
+              <th>NOM</th>
+              <th>MONTANT</th>
+              <th>TELEPHONE</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detail?.idclt }}</td>
+                <td>{{detail?.prenomclt}}</td>
+                <td>{{detail?.nomclt}}</td>
+                <td>{{detail?.mnt}}</td>
+                <td>{{detail?.telclt}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+          <button mat-raised-button type="button" class="" (click)="closeDialog(false)">Fermer</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

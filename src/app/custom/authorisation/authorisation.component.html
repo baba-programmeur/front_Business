@@ -1,0 +1,18 @@
+<app-show-list
+        [title]="'authorisation'"
+        [iconTitle]="'fa fa-list'"
+        [add]="true"
+        [delete]="false"
+        [edit]="false"
+        [headers]="headers"
+        [fieldsForSearch]="fieldsForSearch"
+        (filterChange)="getAllAuthorisation(1, $event)"
+        [entities]="entities"
+        [totalItems]="totalItems"
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (onDetailClicked)="onDetails($event)"
+        (onEditClicked)="onEdit($event)"
+        (onDeleteClicked)="onDelete($event)"
+        (onPaginationClicked)="getAllAuthorisation($event, filtres)"
+></app-show-list>

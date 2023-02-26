@@ -1,0 +1,280 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.dialog .x_content {
+  margin-bottom: 0;
+  max-height: 100vh;
+}
+.formulaire-data {
+  .x_panel {
+    .x_title {
+      h3 {
+        border-bottom: 1px solid;
+        margin-bottom: 1em;
+        i {
+          margin-right: 0.2em;
+        }
+      }
+    }
+
+    .x_content {
+      .infos {
+        margin-bottom: 3em;
+        ul {
+          margin: 0;
+          li {
+            list-style: none;
+            display: inline-block;
+            width: 50%;
+            .libelle {
+              font-weight: bold;
+              margin-right: 0.5em;
+              text-decoration: underline;
+            }
+            .valeur {
+              font-style: italic;
+            }
+          }
+        }
+      }
+
+      .apercu {
+        //padding: 2em;
+        display: block;
+        float: none;
+        ul {
+          //padding: 2em;
+          background: white;
+          li {
+            list-style: none  ;
+          }
+        }
+      }
+
+      fieldset {
+        >ul {
+          max-height: 64vh;
+          overflow: auto;
+        }
+        legend {
+          ul {
+            display: inline-block;
+            float: right;
+            background: #eee;
+            padding: 0 0.5em;
+            border-radius: 5px;
+            li {
+              display: inline-block;
+              list-style: none;
+              a {
+                cursor: pointer;
+                padding: 0 0.5em;
+                border-right: 1px solid #ddd;
+              }
+              &:last-child {
+                a {
+                  border-right: none;
+                }
+              }
+              &.save {
+                a  {
+                  color: green;
+                }
+              }
+              &.delete_champ {
+                a {
+                  color: red;
+                }
+              }
+              &.add_item {
+                a {
+                  color: green;
+                }
+              }
+            }
+          }
+        }
+      }
+      .edit {
+        background: #000000c7;
+        color: white;
+        padding: 1em;
+        fieldset {
+          legend {
+            color: #eeeeee;
+          }
+        }
+        form {
+          float: left;
+          width: 100%;
+          max-height: 60vh;
+          overflow: auto;
+          padding: 0.5em;
+          .form-group {
+            float: left;
+            width: 100%;
+            margin-bottom: 0.5em;
+            border-bottom: 1px solid #00000061;
+            label {
+              //display: inline-block;
+              text-align: right;
+              line-height: 2.6;
+              &.validation {
+                display: block;
+                text-align: left;
+              }
+              &.val_and_mess {
+                //display: block;
+                text-align: left;
+                font-size: 11px;
+                margin-left: 2em;
+                float: left;
+                width: 90%;
+                input[type=text] {
+                  width: 100%;
+                  height: 20px;
+                  color: black;
+                  line-height: 20px;
+                  font-size: 12px;
+                  background: #aaa;
+                }
+              }
+            }
+            input, select {
+              width: 50%;
+              display: inline-block;
+              float: right;
+              height: 25px;
+              line-height: 30px;
+              padding: 0.3em;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.options-config {
+  background: white;
+  color: black;
+  padding: 0.5em;
+  border-radius: 5px;
+  button {
+    &.add {
+      border: none;
+      background: #6ca66c;
+      color: white;
+      border-radius: 3px;
+      box-shadow: 0 0 2px 3px;
+      margin-top: 0.5em;
+      &:focus {
+        box-shadow: 0 0 2px 3px;
+        border: none;
+      }
+    }
+  }
+  table {
+    margin-top: 1em;
+    tr {
+      td {
+        .remove {
+          cursor: pointer;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+.formulaire-item-view {
+  border-radius: 5px;
+  margin-bottom: 1em;
+  // position: relative;
+
+  ::ng-deep ul li {
+    list-style: none;
+  }
+  ::ng-deep ul {
+    padding: 0;
+  }
+
+  &.selected {
+    border: 1px solid #000000c7;
+    >.menu {
+      ul {
+        background: #000000c7;
+      }
+    }
+  }
+  .menu {
+    text-align: right;
+    background: #eeeeee;
+    border-radius: 5px;
+    ul {
+      padding: 0;
+      li {
+        list-style: none !important;
+        display: inline-block;
+        margin-right: 0.2em;
+        border-right: 1px solid #ddd;
+        padding: 0 0.3em;
+        a {
+          cursor: pointer;
+        }
+        &:first-child {
+          border-left: 1px solid #ddd;
+        }
+        &:last-child {
+          margin-right: 0;
+          border-right: none;
+        }
+
+        &.add_item {
+          a {
+            color: green;
+          }
+        }
+        &.add_champ {
+          a {
+
+          }
+        }
+        &.edit_item {
+          a {
+            color: orange;
+          }
+        }
+        &.delete_item {
+          a {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+
+  .items,
+  .champs {
+    //margin-top: 1em;
+    margin-bottom: 0 !important;
+  }
+
+  .champs {
+    .form-group {
+      label {
+        width: 95%;
+        margin: auto;
+        display: block;
+        color: $primary-color;
+        span.error {
+          label {
+            font-size: 1.16rem;
+            color: red;
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+}

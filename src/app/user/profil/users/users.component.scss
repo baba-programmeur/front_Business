@@ -1,0 +1,181 @@
+@import "../../../../assets/sass/lbd/variables";
+
+/*.actif, .verifie {
+  span {
+    margin: auto;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    &.non {
+      background: red;
+    }
+    &.oui {
+      background: lightgreen;
+    }
+  }
+}*/
+
+.users {
+  padding: 1em;
+  background: white;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    i {
+      margin-right: .5em;
+    }
+  }
+  .m-users {
+    table {
+      tr {
+        td {
+          &.roles {
+            button {
+              //background: #eee;
+              //color: black;
+              border: none;
+              box-shadow: 0 0 2px 0px;
+            }
+          }
+          &.actif,
+          &.verifie {
+            span {
+              margin: auto;
+              display: block;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              &.non {
+                background: red;
+              }
+              &.oui {
+                background: lightgreen;
+              }
+            }
+
+          }
+
+        }
+      }
+    }
+  }
+  .m-roles {
+    table {
+      tr {
+        td {
+          &.habilitations {
+            button {
+              background: #eee;
+              color: black;
+              border: none;
+              box-shadow: 0 0 2px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .m-habilitations {
+    ul.group {
+      margin: auto;
+      width: 50%;
+      li {
+      }
+    }
+  }
+
+  .m-users,
+  .m-roles,
+  .m-habilitations {
+    padding: 2em;
+    .menu {
+      padding: 0.5em;
+      // background: #eee;
+      // box-shadow: 0 0 2px;
+      margin-bottom: 2em;
+      button {
+        background: $primary-color;
+        color: white;
+      }
+    }
+    ul {
+      padding: 0;
+      &.group {
+      }
+      li {
+        list-style: none;
+        ul {
+          background: #F5F5F5;
+          padding: 0.5em;
+          min-height: 200px;
+          li {
+            padding: 0.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+table {
+  tr {
+    td {
+      &.roles {
+        button {
+          margin-left: 1em;
+          min-width: 119px;
+          &.role-list {
+            background: #eee;
+            color: #666;
+          }
+          &.edit {
+            background: orange;
+            color: white;
+          }
+          &.disable {
+            background: red;
+            color: white;
+          }
+          &.enable {
+            background: green;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+::ng-deep .mat-tab-body-wrapper {
+  z-index: 0;
+}
+
+::ng-deep .swal-modal {
+  .swal-button-container {
+    .confirm {
+      background: green;
+      color: white;
+    }
+    .cancel {
+      background: red;
+      color: white;
+    }
+  }
+}
+
+.menu {
+  padding: 0.5em;
+  // background: #eee;
+  // box-shadow: 0 0 2px;
+  margin-bottom: 2em;
+  button {
+    background: $primary-color;
+    color: white;
+  }
+}
+
+.sp {
+  margin: 2px;
+}
+

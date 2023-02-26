@@ -1,0 +1,18 @@
+<app-show-list
+        [title]="'paramétrages'"
+        [iconTitle]="'fa fa-list'"
+        [add]="false"
+        [delete]="false"
+        [headers]="headers"
+        [fieldsForSearch]="fieldsForSearch"
+        (filterChange)="getParametrages(null, $event)"
+        [entities]="entities"
+        [totalItems]="totalItems"
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (onDetailClicked)="onDetails($event)"
+        (onEditClicked)="onEdit($event)"
+        (onDeleteClicked)="onDelete($event)"
+        (onExportDataClicked)="exporter(filtres)"
+        (onPaginationClicked)="getParametrages($event, filtres)"
+></app-show-list>

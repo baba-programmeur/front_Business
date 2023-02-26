@@ -1,0 +1,26 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.add-detail-campagne {
+  .content {
+    .mat-form-field {
+      margin-right: 1em;
+      margin-left: 1em;
+      margin-bottom: 1em;
+    }
+
+    .boutons {
+      button {
+        &.cancel {
+          background: red;
+          color: white;
+          border: none;
+        }
+        &.submit {
+          color: white;
+          background: $secondary-color;
+          border: none;
+        }
+      }
+    }
+  }
+}

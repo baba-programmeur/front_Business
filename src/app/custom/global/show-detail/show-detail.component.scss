@@ -1,0 +1,66 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.show-detail {
+  .x_title {
+    // background: #eeeeee;
+    // color: $secondary-color;
+    // border-bottom: 2px solid $secondary-color;
+    // border-radius: 3px;
+    // padding-bottom: 0;
+  }
+  .x_content {
+    .details {
+      padding: 0;
+      float: left;
+      width: 100%;
+      li {
+        list-style: none;
+        float: left;
+        width: 100%;
+        padding: 1em 0.6em;
+        border-bottom: 1px solid #eee;
+        &:last-child {
+          border-bottom: none;
+        }
+        .libelle {
+          float: left;
+          font-size: 1.5rem;
+          font-family: "Trebuchet MS";
+          font-weight: bolder;
+        }
+        .mat-form-field {
+         // width: 10%;
+          max-height: 50%;
+
+        }
+        .valeur {
+          font-family: "Times New Roman";
+          float: right;
+          font-style: normal;
+          text-align: right;
+          color: #aaaaaa;
+          padding: 0 1em;
+          border-radius: 3px;
+          max-width: 100%;
+          overflow: auto;
+          size: 1.5rem;
+        }
+      }
+    }
+
+    .ln_solid {
+      float: left;
+      width: 100%;
+    }
+
+    .fermer {
+      margin-bottom: 1em;
+      padding: 0;
+
+
+      button {
+        margin: 0;
+      }
+    }
+  }
+}

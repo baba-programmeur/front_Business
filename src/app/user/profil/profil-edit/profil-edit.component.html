@@ -1,0 +1,98 @@
+<div class="profil_edit">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Modification du profil</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br>
+
+          <form [formGroup]="editForm" class="form-horizontal form-label-left">
+            <div class="form-group">
+              <label for="login" class="control-label col-md-3 col-sm-3 col-xs-12">
+                Nom d'utilisateur
+                <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" value="{{ user?.login }}" id="login" disabled required class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">
+                Prénom
+                <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text"
+                       [ngClass]="{'error': editForm.controls['prenom'].invalid && (editForm.controls['prenom'].dirty || editForm.controls['prenom'].touched)}"
+                       [(ngModel)]="user.firstName" formControlName="prenom" id="prenom" required class="form-control col-md-7 col-xs-12">
+                <p *ngIf="editForm.controls['prenom'].invalid && (editForm.controls['prenom'].dirty || editForm.controls['prenom'].touched)"
+                   class="error">
+
+                  <label *ngIf="editForm.controls['prenom'].errors.required">
+                    Le prénom est obligatoire.
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="nom" class="control-label col-md-3 col-sm-3 col-xs-12">
+                Nom
+                <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text"
+                       [ngClass]="{'error': editForm.controls['nom'].invalid && (editForm.controls['nom'].dirty || editForm.controls['nom'].touched)}"
+                       [(ngModel)]="user.lastName" formControlName="nom" id="nom" required class="form-control col-md-7 col-xs-12">
+                <p *ngIf="editForm.controls['nom'].invalid && (editForm.controls['nom'].dirty || editForm.controls['nom'].touched)"
+                   class="error">
+
+                  <label *ngIf="editForm.controls['nom'].errors.required">
+                    Le nom est obligatoire.
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">
+                Email
+                <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text"
+                       [ngClass]="{'error': editForm.controls['email'].invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)}"
+                       [(ngModel)]="user.email" formControlName="email" id="email" required class="form-control col-md-7 col-xs-12">
+                <p *ngIf="editForm.controls['email'].invalid && (editForm.controls['email'].dirty || editForm.controls['email'].touched)"
+                   class="error">
+
+                  <label *ngIf="editForm.controls['email'].errors.required">
+                    L'adresse mail est obligatoire.
+                  </label>
+                  <label *ngIf="editForm.controls['email'].errors.email">
+                    Merci de saisir une adresse mail valide.
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            <div class="ln_solid"></div>
+
+            <div class="form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" style="text-align: right;margin-top: 2em;">
+<!--                <button type="button" class="btn btn-primary" (click)="onCancel()">Annuler</button>-->
+                <button mat-raised-button class="cancel" (click)="onCancel()">Annuler</button>
+                <button mat-raised-button color="valide" (click)="onSubmit()">Modifier</button>
+<!--                <button type="submit" class="btn btn-success" (click)="onSubmit()">Modifier</button>-->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

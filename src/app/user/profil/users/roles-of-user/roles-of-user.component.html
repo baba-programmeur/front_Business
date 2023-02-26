@@ -1,0 +1,35 @@
+<div class="roles-of-user show-detail dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h3>{{ user.firstName }} {{ user.lastName }} <span class="login">Login : {{ user.username }}</span></h3>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br>
+          <ul *ngIf="!isPartenaireUser" class="roles">
+            <li *ngFor="let role of rolesToShow">
+              <mat-checkbox
+                      (change)="onCheck($event, role)"
+                      [checked]="role.toAdd">
+                <h4>
+                  <span style="margin-right: 0.5em">{{ role.name }} </span>
+                  <!--            <span class="pull-right">({{ joueur.numeroLicense }})</span>-->
+                </h4>
+              </mat-checkbox>
+            </li>
+          </ul>
+          <span *ngIf="isPartenaireUser">Cet utilisateur a été crée par un partenaire. Vous ne pourrez pas changer son role.</span>
+        </div>
+
+        <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+          <button class="btn btn-default" (click)="onClose()">Fermer</button>
+          <button *ngIf="!isPartenaireUser" class="btn btn-success" (click)="onValidate()">Valider</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

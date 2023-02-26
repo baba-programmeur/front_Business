@@ -1,0 +1,78 @@
+<div class="canal-endpoints dialog">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+          <div class="x_title">
+            <h2>Gestion endpoints pour <strong>{{ configuration.id }}</strong>
+              <!--<a *ngIf="!add" class="add pull-right"><i class="fa fa-plus-circle" (click)="onAdd()"></i></a>
+              <a *ngIf="add" class="cancel pull-right"><i class="fa fa-times-circle" (click)="onCancelAdd()"></i></a>-->
+            </h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content" >
+            <div *ngIf="!selectedEndPoint.urlBlocage" style="display: flex; align-items: center; justify-content: center; padding: 10px">
+              <button (click)="onAdd()" mat-raised-button *ngIf="!add" class="add">Ajouter la configuration <i class="fa fa-plus-circle"></i></button>
+            </div>
+            <div *ngIf="add || selectedEndPoint.urlBlocage">
+              <form [formGroup]="formGroup" class="form-horizontal">
+                <div class="form-group">
+                  <label for="urlAjoutPartenaire">URL AJOUT PARTENAIRE
+                    <input type="text" class="form-control" id="urlAjoutPartenaire" formControlName="urlAjoutPartenaire" [(ngModel)]="selectedEndPoint.urlAjoutPartenaire">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="urlBlocage">URL BLOCAGE
+                    <input type="text" class="form-control" id="urlBlocage" formControlName="urlBlocage" [(ngModel)]="selectedEndPoint.urlBlocage">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="urlConsultation">URL CONSULTATION
+                    <input type="text" class="form-control" id="urlConsultation" formControlName="urlConsultation" [(ngModel)]="selectedEndPoint.urlConsultation">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="urlCredit">URL CREDIT
+                    <input type="text" class="form-control" id="urlCredit" formControlName="urlCredit" [(ngModel)]="selectedEndPoint.urlCredit">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="urlDebit">URL DEBIT
+                    <input type="text" class="form-control" id="urlDebit" formControlName="urlDebit" [(ngModel)]="selectedEndPoint.urlDebit">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="urlToken">URL TOKEN
+                    <input type="text" class="form-control" id="urlToken" formControlName="urlToken" [(ngModel)]="selectedEndPoint.urlToken">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="username">USERNAME
+                    <input type="text" class="form-control" id="username" formControlName="username" [(ngModel)]="selectedEndPoint.username">
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">PASSWORD
+                    <input type="text" class="form-control" id="password" formControlName="password" [(ngModel)]="selectedEndPoint.password">
+                  </label>
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+          <div class="fermer col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+            <button mat-raised-button class="" (click)="onCancel()" style="margin-right: 0.5em">Annuler</button>
+            <button style="background: red; color: white; margin-left: 1em" *ngIf="selectedEndPoint.id" mat-raised-button type="submit" (click)="onDelete(selectedEndPoint)">Supprimer</button>
+            <button mat-raised-button *ngIf="add || selectedEndPoint.urlBlocage" type="submit" class="valide" [disabled]="!formGroup.valid" (click)="onSubmit()">Valider</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

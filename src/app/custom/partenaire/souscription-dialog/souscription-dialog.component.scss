@@ -1,0 +1,11 @@
+@import "../../../../assets/sass/lbd/variables";
+
+.login-form {
+  margin-top: 10px;
+}
+
+::ng-deep .mat-raised-button.valide {
+  background: $color-green;
+  color: white;
+  margin-left: 1em;
+}
